@@ -1,5 +1,4 @@
 <h1 align="center">Hi 👋, I'm jake</h1>
-<h3 align="center">关注云原生/微服务/内核相关技术</h3>
 <p align="left">
 </p>
 
