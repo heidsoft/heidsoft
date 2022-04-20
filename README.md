@@ -1,13 +1,11 @@
 <h1 align="center">Hi 👋, I'm jake</h1>
 
-# 关注领域
-- 微服务(应用治理/全链路灰度/版本管理)
+# 领域
+- 微服务
 - 存储（Ceph/MySQL/ClickHouse/Redis/Kafka）
 - 容器（K8S）
 - JVM
-- 机器学习（AIOps）
 - DDD
-- 研发管理
 
 # 中间件
 - mycat
