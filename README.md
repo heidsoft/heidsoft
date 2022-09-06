@@ -10,13 +10,12 @@
 - 可观测
 - DevSecOps
 - 低代码
-- DevSecOps
 - 区块链
 - Web3
 - 元宇宙
 - 数字孪生
 - 数字化
-
+- 微信小程序
 
 # 中间件
 - mycat
