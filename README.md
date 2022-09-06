@@ -2,10 +2,21 @@
 
 # 领域
 - 微服务
-- 存储（Ceph/MySQL/ClickHouse/Redis/Kafka）
-- 容器（K8S）
+- K8S
 - JVM
 - DDD
+- Serverless
+- ServiceMesh
+- 可观测
+- DevSecOps
+- 低代码
+- DevSecOps
+- 区块链
+- Web3
+- 元宇宙
+- 数字孪生
+- 数字化
+
 
 # 中间件
 - mycat
@@ -13,6 +24,14 @@
 - apollo
 - skywalking
 - etcd
+- Ceph
+- MySQL
+- ClickHouse
+- Redis
+- Kafka
+- RocketMQ
+- Nacos
+- Skywalking
 
 # 产品
 - SaaS
@@ -23,4 +42,10 @@
 - 运维管理平台
 - 监控告警
 - 服务治理平台
-- CI/CD平台
+- 应用元数据平台
+- DevOps平台
+- 数据血缘分析系统
+- 流程挖掘系统
+- ITSM
+- ITOM 
+- 监控系统
