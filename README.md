@@ -1,5 +1,5 @@
 <h1 align="center">行业与技术跟进</h1>
-[[微信公众号]（./qrcode_for_gh_56a2531ebd0f_258.jpeg）](https://raw.githubusercontent.com/heidsoft/heidsoft/main/qrcode_for_gh_56a2531ebd0f_258.jpeg)
+[微信公众号](https://raw.githubusercontent.com/heidsoft/heidsoft/main/qrcode_for_gh_56a2531ebd0f_258.jpeg)
 
 # 领域
 - 微服务
