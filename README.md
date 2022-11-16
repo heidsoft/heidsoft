@@ -1,5 +1,12 @@
-<h1 align="center">行业创业跟进</h1>
+<h1 align="center">行业跟进</h1>
 <img src="https://raw.githubusercontent.com/heidsoft/heidsoft/main/qrcode_for_gh_56a2531ebd0f_258.jpeg" alt="Image text" style="zoom:50%;"/>
+
+# 容器平台产品
+
+- 阿里云ACK 
+- 红帽Openshift(OCP)
+- 亚马逊EKS
+
 
 # 领域
 - 微服务
