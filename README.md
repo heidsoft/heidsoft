@@ -1,5 +1,9 @@
 <h1 align="center">行业跟进</h1>
-<img src="https://raw.githubusercontent.com/heidsoft/heidsoft/main/qrcode_for_gh_56a2531ebd0f_258.jpeg" alt="Image text" style="zoom:50%;"/>
+# 学习素材
+https://www.youtube.com/watch?v=FgWbADOG44s
+https://www.youtube.com/watch?v=wxcCHvQeZ-U
+https://www.youtube.com/watch?v=em2j7sLhoyI
+https://youtu.be/QVa8k36w0Ig
 
 # 容器平台产品
 
