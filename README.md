@@ -1,12 +1,13 @@
 <h1 align="center">行业跟进</h1>
 
-# 学习素材
+# 资源索引
 - https://www.youtube.com/watch?v=FgWbADOG44s
 - https://www.youtube.com/watch?v=wxcCHvQeZ-U
 - https://www.youtube.com/watch?v=em2j7sLhoyI
 - https://youtu.be/QVa8k36w0Ig
+- https://gitee.com/CloudWise/OMP
 
-# 容器平台产品
+# 容器平台
 
 - 阿里云ACK 
 - 红帽Openshift(OCP)
