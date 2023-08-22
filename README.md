@@ -1,7 +1,7 @@
 <h1 align="center">行业跟进</h1>
 
 # 资源索引
-- https://www.youtube.com/watch?v=FgWbADOG44s
+- B-trees in 4 minutes https://www.youtube.com/watch?v=FgWbADOG44s
 - https://www.youtube.com/watch?v=wxcCHvQeZ-U
 - https://www.youtube.com/watch?v=em2j7sLhoyI
 - https://youtu.be/QVa8k36w0Ig
