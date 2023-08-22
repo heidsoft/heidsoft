@@ -2,9 +2,9 @@
 
 # 资源索引
 - B-trees in 4 minutes https://www.youtube.com/watch?v=FgWbADOG44s
-- https://www.youtube.com/watch?v=wxcCHvQeZ-U
-- https://www.youtube.com/watch?v=em2j7sLhoyI
-- https://youtu.be/QVa8k36w0Ig
+- Algorithms behind Modern Storage Systems https://www.youtube.com/watch?v=wxcCHvQeZ-U
+- Bloom Filters in LSM Trees https://www.youtube.com/watch?v=em2j7sLhoyI
+- Time-Series databases https://youtu.be/QVa8k36w0Ig
 - https://gitee.com/CloudWise/OMP
 
 # 容器平台
