@@ -1,6 +1,7 @@
 <h1 align="center">行业跟进</h1>
 
 # 资源索引
+- useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
 - B-trees in 4 minutes https://www.youtube.com/watch?v=FgWbADOG44s
 - Algorithms behind Modern Storage Systems https://www.youtube.com/watch?v=wxcCHvQeZ-U
 - Bloom Filters in LSM Trees https://www.youtube.com/watch?v=em2j7sLhoyI
