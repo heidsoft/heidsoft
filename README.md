@@ -1,4 +1,4 @@
-<h1 align="center">行业跟进</h1>
+<h1 align="center">云与数字化</h1>
 
 # 资源索引
 - useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
@@ -8,6 +8,7 @@
 - Time-Series databases https://youtu.be/QVa8k36w0Ig
 - https://gitee.com/CloudWise/OMP
 - 数据结构 https://www.youtube.com/watch?v=pgw6gEjuwXk&list=PLlb9uS16I9D_i_aEzuLJdXUnIpBEOlh6E&index=7
+- 大模型时代下做科研的四个思路 https://www.youtube.com/watch?v=sZASxeGhE6c
 
 # 容器平台
 
