@@ -10,6 +10,7 @@
 - 数据结构 https://www.youtube.com/watch?v=pgw6gEjuwXk&list=PLlb9uS16I9D_i_aEzuLJdXUnIpBEOlh6E&index=7
 - Transformer论文逐段精读 https://www.youtube.com/watch?v=nzqlFIcCSWQ
 - 大模型时代下做科研的四个思路 https://www.youtube.com/watch?v=sZASxeGhE6c
+- Locally Weighted & Logistic Regression | Stanford CS229: Machine Learning https://www.youtube.com/watch?v=het9HFqo1TQ&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=3
 
 # 容器平台
 
