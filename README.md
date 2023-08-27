@@ -8,6 +8,7 @@
 - Time-Series databases https://youtu.be/QVa8k36w0Ig
 - https://gitee.com/CloudWise/OMP
 - 数据结构 https://www.youtube.com/watch?v=pgw6gEjuwXk&list=PLlb9uS16I9D_i_aEzuLJdXUnIpBEOlh6E&index=7
+- Transformer论文逐段精读 https://www.youtube.com/watch?v=nzqlFIcCSWQ
 - 大模型时代下做科研的四个思路 https://www.youtube.com/watch?v=sZASxeGhE6c
 
 # 容器平台
