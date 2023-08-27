@@ -14,6 +14,7 @@
 - Harvard CS50’s Artificial Intelligence with Python https://www.youtube.com/watch?v=5NgNicANyqM
 - 图片识别 https://www.youtube.com/watch?v=XIrOM9oP3pA
 - 从“卷积”、到“图像卷积操作” https://www.youtube.com/watch?v=D641Ucd_xuw
+- Python Artificial Intelligence Tutorial https://www.youtube.com/watch?v=XIrOM9oP3pA
 
 # 容器平台
 
