@@ -12,6 +12,7 @@
 - 大模型时代下做科研的四个思路 https://www.youtube.com/watch?v=sZASxeGhE6c
 - Locally Weighted & Logistic Regression | Stanford CS229: Machine Learning https://www.youtube.com/watch?v=het9HFqo1TQ&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=3
 - Harvard CS50’s Artificial Intelligence with Python https://www.youtube.com/watch?v=5NgNicANyqM
+- 图片识别 https://www.youtube.com/watch?v=XIrOM9oP3pA
 
 # 容器平台
 
