@@ -15,6 +15,7 @@
 - 图片识别 https://www.youtube.com/watch?v=XIrOM9oP3pA
 - 从“卷积”、到“图像卷积操作” https://www.youtube.com/watch?v=D641Ucd_xuw
 - Python Artificial Intelligence Tutorial https://www.youtube.com/watch?v=XIrOM9oP3pA
+- css flexbox弹性盒子布局 https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
 
 # 容器平台
 
