@@ -18,6 +18,7 @@
 - Python Artificial Intelligence Tutorial https://www.youtube.com/watch?v=XIrOM9oP3pA
 - css flexbox弹性盒子布局 https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
 - 工作流 https://github.com/bpmn-io/bpmn-js-examples/tree/master/overlays
+- 工作流-流程图 https://demo.bpmn.io/
 - 工作流-开源 https://camunda.com/download/platform-7/
 
 # 容器平台
