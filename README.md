@@ -20,6 +20,11 @@
 - 工作流 https://github.com/bpmn-io/bpmn-js-examples/tree/master/overlays
 - 工作流-流程图 https://demo.bpmn.io/
 - 工作流-开源 https://camunda.com/download/platform-7/
+- 工作流-设计 https://temporal.io/blog/workflow-engine-principles
+- 工作流-go  https://github.com/s8sg/goflow
+- 工作流-java https://github.com/camunda/zeebe/tree/main
+- 工作流-camunda-bpm-platform https://github.com/camunda/camunda-bpm-platform/tree/master
+- 前端-vitejs https://cn.vitejs.dev/guide/why.html
 
 # 容器平台
 
