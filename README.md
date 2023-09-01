@@ -27,6 +27,7 @@
 - 前端-vitejs https://cn.vitejs.dev/guide/why.html
 - 消息队列 https://www.uber.com/en-HK/blog/cherami-message-queue-system/
 - LLMOps https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/an-introduction-to-llmops-operationalizing-and-managing-large/ba-p/3910996
+- 工作流设计-https://temporal.io/blog/workflow-engine-principles
 
 # 容器平台
 
