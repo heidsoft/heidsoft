@@ -26,6 +26,7 @@
 - 工作流-camunda-bpm-platform https://github.com/camunda/camunda-bpm-platform/tree/master
 - 前端-vitejs https://cn.vitejs.dev/guide/why.html
 - 消息队列 https://www.uber.com/en-HK/blog/cherami-message-queue-system/
+- LLMOps https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/an-introduction-to-llmops-operationalizing-and-managing-large/ba-p/3910996
 
 # 容器平台
 
