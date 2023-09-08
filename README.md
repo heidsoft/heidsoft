@@ -32,6 +32,7 @@
 
 ## DDD
 - spring boot jdbc https://medium.com/@techphile/spring-data-jdbc-implementing-domain-driven-design-aggregate-4d6bac13c728
+- spring boot jdbc https://github.com/naqashized/springdata-jdbc/tree/main/src/main
 
 # 容器平台
 
