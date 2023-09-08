@@ -30,6 +30,9 @@
 - LLMOps https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/an-introduction-to-llmops-operationalizing-and-managing-large/ba-p/3910996
 - 工作流设计-https://temporal.io/blog/workflow-engine-principles
 
+## DDD
+- spring boot jdbc https://medium.com/@techphile/spring-data-jdbc-implementing-domain-driven-design-aggregate-4d6bac13c728
+
 # 容器平台
 
 - 阿里云ACK 
