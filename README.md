@@ -68,18 +68,28 @@
 
 # 中间件
 - mycat
-- consul 
 - apollo
-- skywalking
 - etcd
-- Ceph
-- MySQL
-- ClickHouse
-- Redis
-- Kafka
-- RocketMQ
 - Nacos
-- Skywalking
+
+# 基础组件
+- RocketMQ 可深入
+- ElK
+- NIO
+- Netty
+- Ceph  暂缓
+- Skywalking 暂缓
+- Kafka 
+- Clickhouse 实时日志存储
+- Consul 管理可以深入
+- Redis redis中间件研究
+- Mysql 数据库分库分表研究
+- PostgreSQL
+- 分布式数据库
+- 分布式中间件
+- 云原生
+- 高性能分布式锁
+- 混沌工程
 
 # 系统
 - ebpf
