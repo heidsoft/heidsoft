@@ -34,6 +34,9 @@
 - spring boot jdbc https://medium.com/@techphile/spring-data-jdbc-implementing-domain-driven-design-aggregate-4d6bac13c728
 - spring boot jdbc https://github.com/naqashized/springdata-jdbc/tree/main/src/main
 
+## DevOps
+- CD https://kubevela.io/zh/docs/getting-started/core-concept/
+
 # 容器平台
 
 - 阿里云ACK 
