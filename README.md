@@ -99,8 +99,10 @@
 - 内核
 
 # 产品
-- 数据库多云DMS系统
+## 数据库多云DMS系统
 - ![image](https://github.com/heidsoft/heidsoft/assets/1329974/88a5f6ec-d99c-4811-9e9a-12305c86f28f)
+- https://mp.weixin.qq.com/s?__biz=MzU0ODg0OTIyNw==&mid=2247501352&idx=1&sn=ad2920245f907c558904db391777efb4&chksm=fbba550ccccddc1af2dab4e4f04572837d90adadf4a103c72937a4c62992cc0df6d621cdd0dd&token=1919588014&lang=zh_CN#rd
+
 - SaaS
 - 电商
 - AiOps
