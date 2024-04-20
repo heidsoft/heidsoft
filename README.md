@@ -1,5 +1,8 @@
 <h1 align="center">云与数字化</h1>
 
+# 机器学习
+- https://anttihavanko.medium.com/time-series-forecasting-for-prometheus-grafana-with-bigquery-ml-2154f7cd48b5
+
 # 资源索引
 - useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
 - react 用户登录界面开发 https://www.youtube.com/watch?v=PKwu15ldZ7k
