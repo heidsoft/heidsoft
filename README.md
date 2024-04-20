@@ -4,6 +4,7 @@
 - https://anttihavanko.medium.com/time-series-forecasting-for-prometheus-grafana-with-bigquery-ml-2154f7cd48b5
 - https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 - https://otexts.com/fpp2/arima.html
+- https://jupyter.org/install
 
 # 资源索引
 - useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
