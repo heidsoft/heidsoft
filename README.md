@@ -1,7 +1,8 @@
-<h1 align="center">云与数字化</h1>
+<h1 align="center">云与AI</h1>
 
 # 机器学习
 - https://anttihavanko.medium.com/time-series-forecasting-for-prometheus-grafana-with-bigquery-ml-2154f7cd48b5
+- https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
 # 资源索引
 - useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
