@@ -5,6 +5,8 @@
 - https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 - https://otexts.com/fpp2/arima.html
 - https://jupyter.org/install
+- https://www.youtube.com/watch?v=exKkgQ1ovAk
+- https://www.youtube.com/watch?v=7FBak9EShbQ
 
 # 资源索引
 - useEffect 完整指南 https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
