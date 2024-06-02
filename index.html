@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多云管理产品</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
+            background-image: url('https://www.transparenttextures.com/patterns/green-dust-and-scratches.png');
+        }
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #1b5e20;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .hero {
+            background: linear-gradient(to right, #a5d6a7, #81c784);
+            padding: 60px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+        }
+        .hero p {
+            font-size: 22px;
+            margin: 20px 0;
+        }
+        .solutions, .pricing {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        .solution, .price {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            margin: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slideUp 1.5s ease-in-out;
+        }
+        .solution:hover, .price:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .solution h2, .price h2 {
+            color: #2e7d32;
+            font-size: 28px;
+        }
+        .solution p, .price p {
+            font-size: 18px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .feature {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            margin: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .feature h2 {
+            color: #2e7d32;
+            font-size: 28px;
+        }
+        .feature p {
+            font-size: 18px;
+        }
+        .testimonials {
+            background-color: #fff;
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s ease-in-out;
+        }
+        .testimonial {
+            margin-bottom: 20px;
+        }
+        .testimonial p {
+            font-size: 18px;
+        }
+        .testimonial .author {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .contact {
+            background-color: #a5d6a7;
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .contact h2 {
+            color: #2e7d32;
+            font-size: 28px;
+        }
+        .contact p {
+            font-size: 20px;
+        }
+        .qrcode {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qrcode img {
+            width: 150px;
+            height: 150px;
+        }
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#product">产品</a>
+            <a href="#solutions">解决方案</a>
+            <a href="#features">特性</a>
+            <a href="#cases">案例</a>
+            <a href="#contact">联系我们</a>
+            <a href="#pricing">价格</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div id="product" class="hero">
+            <h1>解决混合云运维，助力低碳目标</h1>
+            <p>多云管理产品是一款专为企业客户设计的解决方案，旨在通过创新技术简化和优化混合云环境的运维，提升企业运营效率和竞争力。</p>
+        </div>
+        <div id="solutions" class="solutions">
+            <div class="solution">
+                <h2>CMDB</h2>
+                <p>全面的配置管理数据库，提供准确的资产和配置项信息，支持高效的运维管理。</p>
+            </div>
+            <div class="solution">
+                <h2>可观测性</h2>
+                <p>提供全面的可观测性解决方案，实时监控和分析云资源，确保系统的高可用性和性能。</p>
+            </div>
+            <div class="solution">
+                <h2>多云管理</h2>
+                <p>统一管理多云环境，简化资源调度和管理，提升运营效率。</p>
+            </div>
+            <div class="solution">
+                <h2>FinOps</h2>
+                <p>优化云成本管理，实现财务透明，帮助企业更好地控制云开支。</p>
+            </div>
+            <div class="solution">
+                <h2>AIOps</h2>
+                <p>利用人工智能驱动的运维能力，自动检测和解决问题，提高系统稳定性和效率。</p>
+            </div>
+        </div>
+        <div id="features" class="features">
+            <div class="feature">
+                <h2>实时监控</h2>
+                <p>通过仪表盘实时监控系统状态，提供直观的数据展示和告警通知。</p>
+            </div>
+            <div class="feature">
+                <h2>自动化运维</h2>
+                <p>自动化处理常见运维任务，减少人工干预，提高效率和准确性。</p>
+            </div>
+            <div class="feature">
+                <h2>智能分析</h2>
+                <p>利用大数据分析技术，提供深度的性能分析和优化建议。</p>
+            </div>
+            <div class="feature">
+                <h2>绿色节能</h2>
+                <p>通过智能资源调度，优化能耗，助力企业实现低碳环保目标。</p>
+            </div>
+        </div>
+        <div id="cases" class="testimonials">
+            <h2>案例</h2>
+            <div class="testimonial">
+                <p>"使用多云管理产品后，我们的运维效率提高了50%，而且大大降低了人为错误的发生率。" <span class="author">- 王经理，某大型电商公司</span></p>
+            </div>
+            <div class="testimonial">
+                <p>"这个产品帮助我们轻松管理多个云服务供应商的资源，极大地简化了我们的运维工作。" <span class="author">- 李总，某金融科技公司</span></p>
+            </div>
+            <div class="testimonial">
+                <p>"通过AIOps功能，我们的系统问题得到了及时的检测和解决，极大地提升了系统的稳定性。" <span class="author">- 张工程师，某高科技公司</span></p>
+            </div>
+        </div>
+        <div id="pricing" class="pricing">
+            <div class="price">
+                <h2>基础版</h2>
+                <p>价格：¥1000/月</p>
+                <p>适用于小型企业，提供基本的多云管理功能。</p>
+            </div>
+            <div class="price">
+                <h2>高级版</h2>
+                <p>价格：¥3000/月</p>
+                <p>适用于中型企业，包含所有多云管理功能和优先支持。</p>
+            </div>
+            <div class="price">
+                <h2>企业版</h2>
+                <p>价格：¥5000/月</p>
+                <p>适用于大型企业，提供定制化解决方案和专属支持。</p>
+            </div>
+        </div>
+        <div id="contact" class="contact">
+            <h2>联系我们</h2>
+            <p>邮箱：heidsoft@qq.com</p>
+        </div>
+        <div class="qrcode">
+            <h2>关注我们的微信公众号</h2>
+            <img src="qrcode_for_gh_56a2531ebd0f_430.jpg" alt="公众号二维码">
+            <p>扫描二维码，关注我们的最新动态和专业文章。</p>
+            </div>
+    </div>
+    <footer>
+        &copy; 2024 多云管理产品. 版权所有.
+    </footer>
+</body>
+</html>
