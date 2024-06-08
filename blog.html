@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - 多云管理产品</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="product.html">产品</a>
+            <a href="solutions.html">解决方案</a>
+            <a href="features.html">特性</a>
+            <a href="cases.html">案例</a>
+            <a href="contact.html">联系我们</a>
+            <a href="pricing.html">价格</a>
+            <a href="cmp.html">产品演示</a>
+            <a href="blog.html">博客</a>
+        </nav>
+    </header>
+    <div class="container" id="blog-posts">
+        <!-- Markdown 文件将在这里动态加载 -->
+    </div>
+    <footer>
+        &copy; 2024 多云管理产品. 版权所有.
+    </footer>
+
+    <!-- 引入 marked.js 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // 加载并解析 Markdown 文件
+        function loadMarkdownFile(fileName) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // 成功加载 Markdown 文件后，使用 marked.js 将其转换为 HTML
+                        var htmlContent = marked(xhr.responseText);
+                        // 将 HTML 内容插入到页面中
+                        document.getElementById('blog-posts').innerHTML += '<div class="blog-post">' + htmlContent + '</div>';
+                    } else {
+                        console.error('Failed to load ' + fileName);
+                    }
+                }
+            };
+            xhr.open('GET', 'markdown_files/blog/' + fileName, true);
+            xhr.send();
+        }
+
+        // 页面加载完毕后加载并显示博客文章
+        window.onload = function() {
+            // 可以根据需要加载多篇博客文章
+            loadMarkdownFile('post1.md');
+            loadMarkdownFile('post2.md');
+            // 继续加载更多文章
+        };
+    </script>
+</body>
+</html>
