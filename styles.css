@@ -1,0 +1,137 @@
+/* 设置基础样式 */
+body {
+    font-family: Arial, sans-serif; /* 设置字体 */
+    margin: 0; /* 去除默认外边距 */
+    padding: 0; /* 去除默认内边距 */
+    background-color: #f8f9fa; /* 设置背景颜色 */
+    display: flex;
+    flex-direction: column; /* 使子元素垂直排列 */
+    height: 100vh; /* 设置视口高度 */
+}
+
+/* 头部样式 */
+header {
+    display: flex; /* 使用flex布局 */
+    justify-content: flex-start; /* 子元素从左到右排列 */
+    align-items: center; /* 子元素垂直居中 */
+    padding: 10px 20px; /* 内边距 */
+    background-color: #007bff; /* 设置背景颜色 */
+    color: white; /* 设置文字颜色 */
+}
+
+/* Logo样式 */
+.logo {
+    font-size: 1.5em; /* 设置字体大小 */
+    font-weight: bold; /* 设置字体加粗 */
+    margin-right: 10px; /* 设置右外边距，调整与导航栏的距离 */
+}
+
+/* 导航栏样式 */
+nav ul {
+    list-style: none; /* 去除列表样式 */
+    margin: 0; /* 去除默认外边距 */
+    padding: 0; /* 去除默认内边距 */
+    display: flex; /* 使用flex布局 */
+}
+
+/* 导航项样式 */
+nav li {
+    margin: 0 10px; /* 设置导航项的左右外边距 */
+}
+
+/* 导航链接样式 */
+nav a {
+    color: white; /* 设置文字颜色 */
+    text-decoration: none; /* 去除下划线 */
+    font-weight: bold; /* 设置字体加粗 */
+}
+
+/* 导航链接悬停样式 */
+nav a:hover {
+    text-decoration: underline; /* 悬停时显示下划线 */
+}
+
+/* 用户配置文件样式 */
+.user-profile {
+    display: flex; /* 使用flex布局 */
+    align-items: center; /* 子元素垂直居中 */
+    margin-left: auto; /* 将用户配置文件放置在右侧 */
+    position: relative; /* 设置相对定位，以便定位用户菜单 */
+}
+
+/* 用户头像样式 */
+.user-profile img {
+    width: 40px; /* 设置头像宽度 */
+    height: 40px; /* 设置头像高度 */
+    border-radius: 50%; /* 设置圆形头像 */
+    margin-right: 10px; /* 设置右外边距 */
+    cursor: pointer; /* 设置鼠标悬停样式 */
+}
+
+/* 用户菜单样式 */
+.user-menu {
+    display: none; /* 初始状态隐藏 */
+    background: white; /* 设置背景颜色 */
+    color: black; /* 设置文字颜色 */
+    position: absolute; /* 绝对定位 */
+    right: 0; /* 右对齐 */
+    top: 50px; /* 距离顶部50px */
+    border: 1px solid #ccc; /* 设置边框 */
+    border-radius: 4px; /* 设置圆角 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 设置阴影 */
+    padding: 10px; /* 设置内边距 */
+    white-space: nowrap; /* 防止换行 */
+}
+
+/* 悬停显示用户菜单 */
+.user-profile:hover .user-menu {
+    display: flex; /* 显示菜单 */
+    flex-direction: column; /* 菜单项垂直排列 */
+    align-items: flex-start; /* 菜单项左对齐 */
+}
+
+/* 用户菜单链接样式 */
+.user-menu a {
+    color: #007bff; /* 设置文字颜色 */
+    text-decoration: none; /* 去除下划线 */
+    padding: 5px 10px; /* 设置内边距 */
+    display: block; /* 设置为块级元素 */
+    width: 100%; /* 设置宽度为100% */
+}
+
+/* 用户菜单链接悬停样式 */
+.user-menu a:hover {
+    background-color: #f1f1f1; /* 设置悬停背景颜色 */
+}
+
+/* 主体样式 */
+main {
+    flex-grow: 1; /* 占据剩余空间 */
+    padding: 20px; /* 设置内边距 */
+    overflow-y: auto; /* 垂直方向显示滚动条 */
+}
+
+/* 仪表盘卡片容器样式 */
+.dashboard-cards {
+    display: flex; /* 使用flex布局 */
+    justify-content: space-around; /* 子元素平均分布 */
+    margin-bottom: 20px; /* 设置下外边距 */
+}
+
+/* 卡片样式 */
+.card {
+    background: white; /* 设置背景颜色 */
+    padding: 20px; /* 设置内边距 */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 设置阴影 */
+    width: 30%; /* 设置宽度为30% */
+    text-align: center; /* 设置文字居中 */
+}
+
+/* 图表容器样式 */
+.chart-container {
+    background: white; /* 设置背景颜色 */
+    padding: 20px; /* 设置内边距 */
+    border-radius: 8px; /* 设置圆角 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 设置阴影 */
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - CloudMesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入chartjs-plugin-streaming -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming"></script>
+    <!-- 引入chartjs-adapter-date-fns -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">CloudMesh</div>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">仪表盘</a></li>
+                <li><a href="resources.html">资源监控</a></li>
+                <li><a href="cost-management.html">成本管理</a></li>
+                <li><a href="alerts.html">报警设置</a></li>
+                <li><a href="settings.html">设置</a></li>
+            </ul>
+        </nav>
+        <div class="user-profile">
+            <img src="https://via.placeholder.com/40" alt="User Avatar">
+            <div class="user-menu">
+                <a href="#profile">个人资料</a>
+                <a href="#logout">退出</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="dashboard">
+            <h1>仪表盘</h1>
+            <div class="chart-container">
+                <canvas id="realtime-chart"></canvas>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Chart.js 实时监控图表配置
+        const ctx = document.getElementById('realtime-chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // 时间标签
+                datasets: [{
+                    label: 'CPU 使用率 (%)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    data: [] // 数据点
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'realtime', // 时间轴
+                        realtime: {
+                            delay: 2000, // 延迟2秒
+                            onRefresh: function(chart) {
+                                chart.data.labels.push(Date.now());
+                                chart.data.datasets.forEach(function(dataset) {
+                                    dataset.data.push({
+                                        x: Date.now(),
+                                        y: Math.random() * 100 // 随机数据模拟
+                                    });
+                                });
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100 // 最大值100%
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
