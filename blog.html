@@ -4,58 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客 - 多云管理产品</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js" integrity="sha512-xeUh+KxNyTufZOje++oQHstlMQ8/rpyzPuM+gjMFYK3z5ILJGE7l2NvYL+XfliKURMpBIKKp1XoPN/qswlSMFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        /* 与网站页面相同的样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
+            background-image: url('https://www.transparenttextures.com/patterns/green-dust-and-scratches.png');
+        }
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #1b5e20;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .hero {
+            background: linear-gradient(to right, #a5d6a7, #81c784);
+            padding: 60px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+        }
+        .hero p {
+            font-size: 22px;
+            margin: 20px 0;
+        }
+        .testimonials {
+            background-color: #fff;
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s ease-in-out;
+        }
+        .testimonial {
+            margin-bottom: 20px;
+        }
+        .testimonial p {
+            font-size: 18px;
+        }
+        .testimonial .author {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html">首页</a>
-            <a href="product.html">产品</a>
-            <a href="solutions.html">解决方案</a>
-            <a href="features.html">特性</a>
-            <a href="cases.html">案例</a>
-            <a href="contact.html">联系我们</a>
-            <a href="pricing.html">价格</a>
-            <a href="cmp.html">产品演示</a>
+            <a href="#product">产品</a>
+            <a href="#solutions">解决方案</a>
+            <a href="#features">特性</a>
+            <a href="#cases">案例</a>
+            <a href="#contact">联系我们</a>
+            <a href="#pricing">价格</a>
+            <a href="dashboard.html">产品演示</a>
             <a href="blog.html">博客</a>
         </nav>
     </header>
-    <div class="container" id="blog-posts">
-        <!-- Markdown 文件将在这里动态加载 -->
+    <div class="container">
+        <div class="hero">
+            <h1>博客 - 多云管理产品</h1>
+            <p>在这里阅读最新的博客文章。</p>
+        </div>
+        <div class="testimonials" id="blogContent">
+            <!-- 博客文章内容将在此动态加载 -->
+        </div>
     </div>
     <footer>
         &copy; 2024 多云管理产品. 版权所有.
     </footer>
 
     <!-- 引入 marked.js 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+   
     <script>
-        // 加载并解析 Markdown 文件
-        function loadMarkdownFile(fileName) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // 成功加载 Markdown 文件后，使用 marked.js 将其转换为 HTML
-                        var htmlContent = marked(xhr.responseText);
-                        // 将 HTML 内容插入到页面中
-                        document.getElementById('blog-posts').innerHTML += '<div class="blog-post">' + htmlContent + '</div>';
-                    } else {
-                        console.error('Failed to load ' + fileName);
-                    }
-                }
-            };
-            xhr.open('GET', 'markdown_files/blog/' + fileName, true);
-            xhr.send();
-        }
-
-        // 页面加载完毕后加载并显示博客文章
-        window.onload = function() {
-            // 可以根据需要加载多篇博客文章
-            loadMarkdownFile('post1.md');
-            loadMarkdownFile('post2.md');
-            // 继续加载更多文章
-        };
+        // 使用 Fetch API 加载 Markdown 文件并解析成 HTML
+        fetch('markdown_files/blog/post1.md')
+            .then(response => response.text())
+            .then(text => {
+                // 使用 marked.js 将 Markdown 转换为 HTML
+                const html = marked(text);
+                // 将 HTML 内容插入到页面中
+                document.getElementById('blogContent').innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching blog content:', error));
     </script>
 </body>
 </html>
