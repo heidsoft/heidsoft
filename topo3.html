@@ -317,14 +317,14 @@
                         type: 'graph',
                         layout: 'force',
                         force: {
-                            repulsion: 200
+                            repulsion: 500
                         },
                         data: data.nodes.map(function (node) {
                             return {
                                 id: node.id,
                                 name: node.name,
                                 ip: node.ip,
-                                symbolSize: 40
+                                symbolSize: 30
                             };
                         }),
                         links: data.edges.map(function (edge) {
@@ -338,8 +338,8 @@
                                     }
                                 },
                                 lineStyle: {
-                                    width: 2,
-                                    curveness: 0.2
+                                    width: 4,
+                                    curveness: 0.1
                                 }
                             };
                         }),

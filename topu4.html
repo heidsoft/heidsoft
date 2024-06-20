@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商服务调用链路展示</title>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <!-- 引入 Bootstrap 样式 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .sub-row {
+            background-color: #f0f0f0; /* 子行的背景颜色 */
+        }
+        .card-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>电商服务调用链路拓扑图</h2>
+                <div id="topology-chart" style="height: 600px;"></div>
+            </div>
+            <div class="col-md-4">
+                <h2>服务监控看板</h2>
+                <div id="monitoring-cards"></div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2>链路跟踪数据表格</h2>
+                <table id="trace-table" class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Trace ID</th>
+                            <th>X-Request-ID</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>时长 (ms)</th>
+                            <th>请求IP</th>
+                            <th>服务</th>
+                            <th>目标服务</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 表格内容将通过 JavaScript 动态添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 React、ReactDOM 和 Ant Design 样式 -->
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/antd/dist/antd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/antd/dist/antd.min.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 示例数据
+            var data = {
+                nodes: [
+                    { id: 'nginx', name: 'Nginx', category: 0 },
+                    { id: 'userService', name: '用户服务', category: 1 },
+                    { id: 'productService', name: '商品服务', category: 1 },
+                    { id: 'cartService', name: '购物车服务', category: 1 },
+                    { id: 'orderService', name: '订单服务', category: 1 },
+                    { id: 'paymentService', name: '支付服务', category: 1 },
+                    { id: 'inventoryService', name: '库存服务', category: 1 },
+                    { id: 'mysql', name: 'MySQL', category: 3 },
+                    { id: 'redis', name: 'Redis', category: 3 }
+                ],
+                links: [
+                    { source: 'nginx', target: 'userService', category: 0, value: 'nginx -> userService' },
+                    { source: 'nginx', target: 'productService', category: 0, value: 'nginx -> productService' },
+                    { source: 'nginx', target: 'cartService', category: 0, value: 'nginx -> cartService' },
+                    { source: 'userService', target: 'orderService', category: 1, value: 'userService -> orderService' },
+                    { source: 'productService', target: 'cartService', category: 1, value: 'productService -> cartService' },
+                    { source: 'orderService', target: 'paymentService', category: 1, value: 'orderService -> paymentService' },
+                    { source: 'orderService', target: 'inventoryService', category: 1, value: 'orderService -> inventoryService' },
+                    { source: 'userService', target: 'mysql', category: 2, value: 'userService -> mysql' },
+                    { source: 'productService', target: 'mysql', category: 2, value: 'productService -> mysql' },
+                    { source: 'cartService', target: 'redis', category: 2, value: 'cartService -> redis' }
+                ],
+                categories: [
+                    { name: 'Nginx' },
+                    { name: '服务' },
+                    { name: '服务依赖' },
+                    { name: '数据库' }
+                ]
+            };
+
+            // 示例监控数据
+            var monitoringData = [
+                { service: '用户服务', request_count: 1000, avg_response_time: 120, error_rate: 0.1 },
+                { service: '商品服务', request_count: 800, avg_response_time: 90, error_rate: 0.05 },
+                { service: '购物车服务', request_count: 600, avg_response_time: 110, error_rate: 0.08 },
+                { service: '订单服务', request_count: 500, avg_response_time: 200, error_rate: 0.2 },
+                { service: '支付服务', request_count: 400, avg_response_time: 150, error_rate: 0.15 },
+                { service: '库存服务', request_count: 300, avg_response_time: 180, error_rate: 0.18 },
+                { service: 'MySQL', request_count: 200, avg_response_time: 150, error_rate: 0.1 },
+                { service: 'Redis', request_count: 150, avg_response_time: 130, error_rate: 0.12 }
+            ];
+
+            // 示例链路数据
+            var traceData = [
+                {
+                    trace_id: '1234567890',
+                    x_request_id: 'req1',
+                    start_time: '2024-06-19 10:00:00',
+                    end_time: '2024-06-19 10:00:02',
+                    duration: 2000,
+                    request_ip: '192.168.1.10',
+                    services: [
+                        { service: 'Nginx', target_service: '用户服务' },
+                        { service: '用户服务', target_service: '订单服务' },
+                        { service: '订单服务', target_service: '支付服务' }
+                    ],
+                    status: '成功'
+                }
+                // 可以添加更多的链路数据
+            ];
+
+            // 渲染拓扑图
+            renderTopologyChart();
+
+            // 渲染链路跟踪数据表格
+            renderTraceTable(traceData);
+
+            // 渲染服务的监控看板信息
+            function showServicePanel(data) {
+                var monitoringCards = document.getElementById('monitoring-cards');
+                monitoringCards.innerHTML = ''; // 清空监控看板内容
+
+                var statusClass = 'bg-success';
+                if (data.error_rate > 0.3) {
+                    statusClass = 'bg-warning';
+                }
+                if (data.error_rate > 0.4) {
+                    statusClass = 'bg-danger';
+                }
+
+                var cardHtml = `
+                    <div class="card ${statusClass} card-item">
+                        <div class="card-body">
+                            <h5 class="card-title">${data.service}</h5>
+                            <p class="card-text">请求数: ${data.request_count}</p>
+                            <p class="card-text">平均响应时间: ${data.avg_response_time} ms</p>
+                            <p class="card-text">错误率: ${data.error_rate * 100} %</p>
+                        </div>
+                    </div>
+                `;
+                monitoringCards.insertAdjacentHTML('beforeend', cardHtml);
+            }
+
+            // 渲染点击行的子行，展示服务链路
+            function renderSubRows(parentRow, services) {
+                // 检查是否已经展开子行
+                var existingSubRow = parentRow.nextElementSibling;
+                if (existingSubRow && existingSubRow.classList.contains('sub-row')) {
+                    existingSubRow.remove(); // 移除已有的子行
+                    return;
+                }
+
+                // 构建子行 HTML
+                var subRowHtml = '';
+                services.forEach(function (service) {
+                    subRowHtml += `
+                        <tr class="sub-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${service.service}</td>
+                            <td>${service.target_service}</td>
+                            <td></td>
+                        </tr>
+                    `;
+                });
+
+                // 插入子行
+                parentRow.insertAdjacentHTML('afterend', subRowHtml);
+            }
+
+            // 渲染链路跟踪数据表格
+            function renderTraceTable(data) {
+                var tableBody = document.querySelector('#trace-table tbody');
+                tableBody.innerHTML = ''; // 清空表格内容
+
+                data.forEach(function (item) {
+                    var rowHtml = `
+                        <tr data-trace-id="${item.trace_id}">
+                            <td>${item.trace_id}</td>
+                            <td>${item.x_request_id}</td>
+                            <td>${item.start_time}</td>
+                            <td>${item.end_time}</td>
+                            <td>${item.duration}</td>
+                            <td>${item.request_ip}</td>
+                            <td>${item.services.map(function (service) { return service.service; }).join('<br>')}</td>
+                            <td>${item.services.map(function (service) { return service.target_service; }).join('<br>')}</td>
+                            <td>${item.status}</td>
+                        </tr>
+                    `;
+                    tableBody.insertAdjacentHTML('beforeend', rowHtml);
+                });
+
+                // 添加点击事件处理，展开服务链路
+                var tableRows = document.querySelectorAll('#trace-table tbody tr');
+                tableRows.forEach(function (row) {
+                    row.addEventListener('click', function () {
+                        var traceId = row.getAttribute('data-trace-id');
+                        var rowData = traceData.find(function (item) {
+                            return item.trace_id === traceId;
+                        });
+                        if (rowData) {
+                            renderSubRows(row, rowData.services);
+                        }
+                    });
+                });
+            }
+
+            // 渲染拓扑图函数
+            function renderTopologyChart() {
+                var chartDom = document.getElementById('topology-chart');
+                var myChart = echarts.init(chartDom);
+
+                var categories = data.categories.map(function (category) {
+                    return { name: category.name };
+                });
+
+                var option = {
+                    tooltip: {},
+                    series: [{
+                        type: 'graph',
+                        layout: 'force',
+                        force: {
+                            repulsion: 200,
+                            edgeLength: [80, 200]
+                        },
+                        data: data.nodes.map(function (node) {
+                            return {
+                                id: node.id,
+                                name: node.name,
+                                category: node.category,
+                                symbolSize: 40
+                            };
+                        }),
+                        links: data.links.map(function (link) {
+                            return {
+                                source: link.source,
+                                target: link.target,
+                                value: link.value,
+                                lineStyle: {
+                                    width: 2,
+                                    curveness: 0.2
+                                }
+                            };
+                        }),
+                        categories: categories,
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        }
+                    }]
+                };
+
+                myChart.setOption(option);
+
+                // 添加点击事件，显示服务监控看板信息
+                myChart.on('click', function (params) {
+                    if (params.data && params.data.category === 1) {
+                        var serviceName = params.data.name;
+                        var serviceData = monitoringData.find(function (item) {
+                            return item.service === serviceName;
+                        });
+                        if (serviceData) {
+                            showServicePanel(serviceData);
+                        } else {
+                            // 如果没有监控数据，则清空监控看板
+                            document.getElementById('monitoring-cards').innerHTML = '';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
