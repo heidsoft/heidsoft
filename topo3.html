@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商服务拓扑图与链路跟踪数据</title>
+    <!-- 引入 Bootstrap 样式 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 ECharts 样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.css">
+    <style>
+        #topology-chart {
+            width: 100%;
+            height: 800px;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .card-item {
+            flex: 1 1 300px;
+            margin-bottom: 10px;
+        }
+        .search-input {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+        .sub-row {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 渲染图表的容器 -->
+                <div id="topology-chart"></div>
+            </div>
+        </div>
+
+        <!-- 服务监控看板 -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>服务监控看板</h2>
+                <div id="monitoring-cards" class="card-container"></div>
+            </div>
+        </div>
+
+        <!-- 链路跟踪数据表格 -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>链路跟踪数据</h2>
+                <input type="text" id="trace-search" class="form-control search-input" placeholder="搜索 Trace ID">
+                <table id="trace-table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Trace ID</th>
+                            <th>X-Request-ID</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>时长 (ms)</th>
+                            <th>请求 IP</th>
+                            <th>源服务</th>
+                            <th>目标服务</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 这里通过 JavaScript 动态生成表格内容 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 Bootstrap JavaScript 依赖 -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- 引入 ECharts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    
+    <script>
+        // 示例数据
+        var monitoringData = [
+            { service: '用户服务', request_count: 1000, avg_response_time: 120, error_rate: 0.5 },
+            { service: '商品服务', request_count: 800, avg_response_time: 90, error_rate: 0.3 },
+            { service: '购物车服务', request_count: 600, avg_response_time: 110, error_rate: 0.2 },
+            { service: '订单服务', request_count: 500, avg_response_time: 200, error_rate: 0.1 },
+            { service: '支付服务', request_count: 400, avg_response_time: 250, error_rate: 0.4 },
+            { service: '库存服务', request_count: 350, avg_response_time: 180, error_rate: 0.2 },
+            { service: 'Nginx', request_count: 1200, avg_response_time: 80, error_rate: 0.3 },
+            { service: 'MySQL', request_count: 200, avg_response_time: 150, error_rate: 0.1 },
+            { service: 'Redis', request_count: 300, avg_response_time: 100, error_rate: 0.2 }
+        ];
+
+        var traceData = [
+            {
+                trace_id: '1234567890',
+                x_request_id: 'req1',
+                start_time: '2024-06-19 10:00:00',
+                end_time: '2024-06-19 10:00:02',
+                duration: 2000,
+                request_ip: '192.168.1.10',
+                services: [
+                    { service: '用户服务', duration: 800 },
+                    { service: '商品服务', duration: 1200 },
+                    { service: '订单服务', duration: 500 }
+                ],
+                status: '成功'
+            },
+            {
+                trace_id: '0987654321',
+                x_request_id: 'req2',
+                start_time: '2024-06-19 10:01:00',
+                end_time: '2024-06-19 10:01:01',
+                duration: 1000,
+                request_ip: '192.168.1.11',
+                services: [
+                    { service: '商品服务', duration: 800 },
+                    { service: '购物车服务', duration: 1000 }
+                ],
+                status: '成功'
+            },
+            {
+                trace_id: '1122334455',
+                x_request_id: 'req3',
+                start_time: '2024-06-19 10:02:00',
+                end_time: '2024-06-19 10:02:05',
+                duration: 5000,
+                request_ip: '192.168.1.12',
+                services: [
+                    { service: '购物车服务', duration: 2000 },
+                    { service: '订单服务', duration: 3000 },
+                    { service: '支付服务', duration: 1000 }
+                ],
+                status: '成功'
+            },
+            {
+                trace_id: '5544332211',
+                x_request_id: 'req4',
+                start_time: '2024-06-19 10:03:00',
+                end_time: '2024-06-19 10:03:03',
+                duration: 3000,
+                request_ip: '192.168.1.13',
+                services: [
+                    { service: '订单服务', duration: 1500 },
+                    { service: '支付服务', duration: 1500 }
+                ],
+                status: '成功'
+            },
+            {
+                trace_id: '6677889900',
+                x_request_id: 'req5',
+                start_time: '2024-06-19 10:04:00',
+                end_time: '2024-06-19 10:04:05',
+                duration: 5000,
+                request_ip: '192.168.1.14',
+                services: [
+                    { service: '订单服务', duration: 2000 },
+                    { service: '库存服务', duration: 3000 }
+                ],
+                status: '成功'
+            }
+        ];
+
+        // 在页面加载完毕后渲染监控看板、链路跟踪数据表格和拓扑图
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMonitoringCards();
+            renderTraceTable(traceData);
+            renderTopologyChart();
+        });
+
+        // 渲染监控看板
+        function renderMonitoringCards() {
+            var monitoringCards = document.getElementById('monitoring-cards');
+            monitoringCards.innerHTML = ''; // 清空监控看板内容
+
+            monitoringData.forEach(function (item) {
+                var statusClass = 'bg-success';
+                if (item.error_rate > 0.3) {
+                    statusClass = 'bg-warning';
+                }
+                if (item.error_rate > 0.4) {
+                    statusClass = 'bg-danger';
+                }
+                var cardHtml = `
+                    <div class="card ${statusClass} card-item">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.service}</h5>
+                            <p class="card-text">请求数: ${item.request_count}</p>
+                            <p class="card-text">平均响应时间: ${item.avg_response_time} ms</p>
+                            <p class="card-text">错误率: ${item.error_rate * 100} %</p>
+                        </div>
+                    </div>
+                `;
+                monitoringCards.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+
+        // 渲染链路跟踪数据表格
+        function renderTraceTable(data) {
+            var tableBody = document.querySelector('#trace-table tbody');
+            tableBody.innerHTML = ''; // 清空表格内容
+
+            data.forEach(function (item) {
+                var rowHtml = `
+                    <tr data-trace-id="${item.trace_id}">
+                        <td>${item.trace_id}</td>
+                        <td>${item.x_request_id}</td>
+                        <td>${item.start_time}</td>
+                        <td>${item.end_time}</td>
+                        <td>${item.duration}</td>
+                        <td>${item.request_ip}</td>
+                        <td>${item.services.map(function (service) { return service.service; }).join('<br>')}</td>
+                        <td>${item.status}</td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', rowHtml);
+            });
+
+            // 添加点击事件处理，展开服务链路
+            var tableRows = document.querySelectorAll('#trace-table tbody tr');
+            tableRows.forEach(function (row) {
+                row.addEventListener('click', function () {
+                    var traceId = row.getAttribute('data-trace-id');
+                    var rowData = traceData.find(function (item) {
+                        return item.trace_id === traceId;
+                    });
+                    if (rowData) {
+                        renderSubRows(row, rowData.services);
+                    }
+                });
+            });
+        }
+
+        // 渲染点击行的子行，展示服务链路
+        function renderSubRows(parentRow, services) {
+            // 检查是否已经展开子行
+            var existingSubRow = parentRow.nextElementSibling;
+            if (existingSubRow && existingSubRow.classList.contains('sub-row')) {
+                existingSubRow.remove(); // 移除已有的子行
+                return;
+            }
+
+            // 构建子行 HTML
+            var subRowHtml = '';
+            services.forEach(function (service) {
+                subRowHtml += `
+                    <tr class="sub-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>${service.service}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                `;
+            });
+
+            // 插入子行
+            parentRow.insertAdjacentHTML('afterend', subRowHtml);
+        }
+
+        // 渲染拓扑图
+        function renderTopologyChart() {
+            var chart = echarts.init(document.getElementById('topology-chart'));
+
+            // 示例数据
+            var data = {
+                nodes: [
+                    { id: 'userService', name: '用户服务', ip: '192.168.1.1' },
+                    { id: 'productService', name: '商品服务', ip: '192.168.1.2' },
+                    { id: 'cartService', name: '购物车服务', ip: '192.168.1.3' },
+                    { id: 'orderService', name: '订单服务', ip: '192.168.1.4' },
+                    { id: 'paymentService', name: '支付服务', ip: '192.168.1.5' },
+                    { id: 'inventoryService', name: '库存服务', ip: '192.168.1.6' },
+                    { id: 'nginx', name: 'Nginx', ip: '192.168.1.7' },
+                    { id: 'mysql', name: 'MySQL', ip: '192.168.1.8' },
+                    { id: 'redis', name: 'Redis', ip: '192.168.1.9' }
+                ],
+                edges: [
+                    { source: 'userService', target: 'productService', call_count: 1000, avg_response_time: 120 },
+                    { source: 'productService', target: 'cartService', call_count: 800, avg_response_time: 90 },
+                    { source: 'cartService', target: 'orderService', call_count: 600, avg_response_time: 110 },
+                    { source: 'orderService', target: 'paymentService', call_count: 500, avg_response_time: 200 },
+                    { source: 'orderService', target: 'inventoryService', call_count: 350, avg_response_time: 180 },
+                    { source: 'nginx', target: 'userService', call_count: 300, avg_response_time: 80 },
+                    { source: 'mysql', target: 'orderService', call_count: 200, avg_response_time: 150 },
+                    { source: 'redis', target: 'cartService', call_count: 300, avg_response_time: 100 }
+                ]
+            };
+
+            var option = {
+                tooltip: {
+                    formatter: function (params) {
+                        if (params.dataType === 'node') {
+                            return `${params.data.name}<br>IP: ${params.data.ip}`;
+                        } else if (params.dataType === 'edge') {
+                            return `调用次数: ${params.data.call_count} 次<br>平均响应时间: ${params.data.avg_response_time} ms`;
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'force',
+                        force: {
+                            repulsion: 200
+                        },
+                        data: data.nodes.map(function (node) {
+                            return {
+                                id: node.id,
+                                name: node.name,
+                                ip: node.ip,
+                                symbolSize: 40
+                            };
+                        }),
+                        links: data.edges.map(function (edge) {
+                            return {
+                                source: edge.source,
+                                target: edge.target,
+                                label: {
+                                    show: true,
+                                    formatter: function (params) {
+                                        return `${params.data.call_count} 次, ${params.data.avg_response_time} ms`;
+                                    }
+                                },
+                                lineStyle: {
+                                    width: 2,
+                                    curveness: 0.2
+                                }
+                            };
+                        }),
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        }
+                    }
+                ]
+            };
+
+            chart.setOption(option);
+
+            // 点击事件处理，显示对应服务的监控看板信息
+            chart.on('click', function (params) {
+                if (params.dataType === 'node') {
+                    var serviceName = params.data.name;
+                    var serviceData = monitoringData.find(function (item) {
+                        return item.service === serviceName;
+                    });
+                    if (serviceData) {
+                        showServicePanel(serviceData);
+                    }
+                }
+            });
+
+            // 显示服务的监控看板信息
+            function showServicePanel(data) {
+                var monitoringCards = document.getElementById('monitoring-cards');
+                monitoringCards.innerHTML = ''; // 清空监控看板内容
+
+                var statusClass = 'bg-success';
+                if (data.error_rate > 0.3) {
+                    statusClass = 'bg-warning';
+                }
+                if (data.error_rate > 0.4) {
+                    statusClass = 'bg-danger';
+                }
+
+                var cardHtml = `
+                    <div class="card ${statusClass} card-item">
+                        <div class="card-body">
+                            <h5 class="card-title">${data.service}</h5>
+                            <p class="card-text">请求数: ${data.request_count}</p>
+                            <p class="card-text">平均响应时间: ${data.avg_response_time} ms</p>
+                            <p class="card-text">错误率: ${data.error_rate * 100} %</p>
+                        </div>
+                    </div>
+                `;
+                monitoringCards.insertAdjacentHTML('beforeend', cardHtml);
+            }
+        }
+    </script>
+</body>
+</html>

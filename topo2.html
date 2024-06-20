@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>电商服务拓扑图与链路跟踪数据</title>
+    <!-- 引入 ECharts 和 Ant Design -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd/dist/antd.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/antd/dist/antd.min.js"></script>
+    <style>
+        #topology-chart {
+            width: 100%;
+            height: 600px;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .card-item {
+            flex: 1;
+            min-width: 300px;
+        }
+        .status-success {
+            border-left: 4px solid #52c41a;
+        }
+        .status-warning {
+            border-left: 4px solid #faad14;
+        }
+        .status-error {
+            border-left: 4px solid #f5222d;
+        }
+    </style>
+</head>
+<body>
+    <!-- 渲染图表的 DOM 容器 -->
+    <div id="topology-chart"></div>
+
+    <!-- 服务监控看板 -->
+    <h2>服务监控看板</h2>
+    <div class="card-container" id="monitoring-cards"></div>
+
+    <!-- 链路跟踪数据表格 -->
+    <h2>链路跟踪数据</h2>
+    <div id="trace-table"></div>
+
+    <script>
+        // 初始化 ECharts 实例
+        var chart = echarts.init(document.getElementById('topology-chart'));
+
+        // 定义节点和边的数据
+        var data = {
+            nodes: [
+                { id: 'userService', name: '用户服务' },
+                { id: 'productService', name: '商品服务' },
+                { id: 'cartService', name: '购物车服务' },
+                { id: 'orderService', name: '订单服务' },
+                { id: 'paymentService', name: '支付服务' },
+                { id: 'inventoryService', name: '库存服务' }
+            ],
+            edges: [
+                { source: 'userService', target: 'productService', call_count: 300, avg_response_time: 100 },
+                { source: 'productService', target: 'cartService', call_count: 250, avg_response_time: 200 },
+                { source: 'cartService', target: 'orderService', call_count: 200, avg_response_time: 150 },
+                { source: 'orderService', target: 'paymentService', call_count: 150, avg_response_time: 300 },
+                { source: 'orderService', target: 'inventoryService', call_count: 150, avg_response_time: 400 }
+            ]
+        };
+
+        // 配置图表选项
+        var option = {
+            tooltip: {
+                formatter: function (params) {
+                    if (params.dataType === 'edge') {
+                        return '源服务: ' + params.data.source + ' -> 目标服务: ' + params.data.target + '<br/>' +
+                            '请求数: ' + params.data.call_count + '<br/>' +
+                            '平均响应时间: ' + params.data.avg_response_time + ' ms';
+                    }
+                    return params.data.name;
+                }
+            },
+            series: [{
+                type: 'graph',
+                layout: 'force',
+                data: data.nodes.map(node => ({ name: node.name, id: node.id, symbolSize: 50 })),
+                links: data.edges.map(edge => ({ source: edge.source, target: edge.target, call_count: edge.call_count, avg_response_time: edge.avg_response_time })),
+                focusNodeAdjacency: true,
+                roam: true,
+                label: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{b}'
+                },
+                lineStyle: {
+                    color: 'source',
+                    curveness: 0.3
+                },
+                force: {
+                    repulsion: 500,
+                    edgeLength: [100, 200]
+                }
+            }]
+        };
+
+        // 使用指定的配置项和数据显示图表
+        chart.setOption(option);
+
+        // 服务监控看板数据
+        var monitoringData = [
+            { service: '用户服务', request_count: 1000, avg_response_time: 120, error_rate: 0.5 },
+            { service: '商品服务', request_count: 800, avg_response_time: 90, error_rate: 0.3 },
+            { service: '购物车服务', request_count: 600, avg_response_time: 110, error_rate: 0.2 },
+            { service: '订单服务', request_count: 500, avg_response_time: 200, error_rate: 0.1 },
+            { service: '支付服务', request_count: 400, avg_response_time: 250, error_rate: 0.4 },
+            { service: '库存服务', request_count: 350, avg_response_time: 180, error_rate: 0.2 }
+        ];
+
+        // 动态生成监控看板
+        var monitoringCardsContainer = document.getElementById('monitoring-cards');
+
+        monitoringData.forEach(function (monitoring) {
+            var card = document.createElement('div');
+            card.className = 'card-item';
+            var statusClass = 'status-success';
+            if (monitoring.error_rate > 0.3) {
+                statusClass = 'status-error';
+            } else if (monitoring.error_rate > 0.1) {
+                statusClass = 'status-warning';
+            }
+            card.classList.add(statusClass);
+
+            var cardContent = `
+                <div class="ant-card ant-card-bordered">
+                    <div class="ant-card-head">
+                        <div class="ant-card-head-title">${monitoring.service}</div>
+                    </div>
+                    <div class="ant-card-body">
+                        <p>请求数: ${monitoring.request_count}</p>
+                        <p>平均响应时间: ${monitoring.avg_response_time} ms</p>
+                        <p>错误率: ${monitoring.error_rate}%</p>
+                    </div>
+                </div>
+            `;
+            card.innerHTML = cardContent;
+            monitoringCardsContainer.appendChild(card);
+        });
+
+        // 链路跟踪数据
+        var traceData = [
+            {
+                trace_id: '1234567890',
+                x_request_id: 'req1',
+                start_time: '2024-06-19 10:00:00',
+                end_time: '2024-06-19 10:00:02',
+                duration: 2000,
+                source_service: '用户服务',
+                target_service: '商品服务',
+                status: '成功'
+            },
+            {
+                trace_id: '0987654321',
+                x_request_id: 'req2',
+                start_time: '2024-06-19 10:01:00',
+                end_time: '2024-06-19 10:01:01',
+                duration: 1000,
+                source_service: '商品服务',
+                target_service: '购物车服务',
+                status: '成功'
+            },
+            {
+                trace_id: '1122334455',
+                x_request_id: 'req3',
+                start_time: '2024-06-19 10:02:00',
+                end_time: '2024-06-19 10:02:05',
+                duration: 5000,
+                source_service: '购物车服务',
+                target_service: '订单服务',
+                status: '成功'
+            },
+            {
+                trace_id: '5544332211',
+                x_request_id: 'req4',
+                start_time: '2024-06-19 10:03:00',
+                end_time: '2024-06-19 10:03:03',
+                duration: 3000,
+                source_service: '订单服务',
+                target_service: '支付服务',
+                status: '成功'
+            },
+            {
+                trace_id: '6677889900',
+                x_request_id: 'req5',
+                start_time: '2024-06-19 10:04:00',
+                end_time: '2024-06-19 10:04:02',
+                duration: 2000,
+                source_service: '订单服务',
+                target_service: '库存服务',
+                status: '成功'
+            }
+        ];
+
+        // 渲染链路跟踪数据表格
+        var traceTableContainer = document.getElementById('trace-table');
+
+        antd.Table({
+            columns: [
+                { title: 'Trace ID', dataIndex: 'trace_id', key: 'trace_id' },
+                { title: 'X-Request-ID', dataIndex: 'x_request_id', key: 'x_request_id' },
+                { title: '开始时间', dataIndex: 'start_time', key: 'start_time' },
+                { title: '结束时间', dataIndex: 'end_time', key: 'end_time' },
+                { title: '持续时间 (ms)', dataIndex: 'duration', key: 'duration' },
+                { title: '源服务', dataIndex: 'source_service', key: 'source_service' },
+                { title: '目标服务', dataIndex: 'target_service', key: 'target_service' },
+                { title: '状态', dataIndex: 'status', key: 'status' }
+            ],
+            dataSource: traceData,
+            pagination: false
+        }).render(traceTableContainer);
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Topology</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"></script>
+  <style>
+    #cy {
+      width: 100%;
+      height: 600px;
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+<body>
+
+<div id="cy"></div>
+
+<script>
+  // 从服务器获取的数据
+  const data = {
+    "nodes": [
+      { "id": "1", "type": "host", "name": "host-01", "ip": "192.168.1.1", "status": "active" },
+      { "id": "2", "type": "service", "name": "web-service", "ip": "192.168.1.2", "status": "active" },
+      { "id": "3", "type": "container", "name": "web-pod", "ip": "192.168.1.3", "status": "active" }
+    ],
+    "edges": [
+      { "source": "1", "target": "2", "type": "link", "bandwidth": "1Gbps", "latency": "10ms", "traffic": "100Mbps" },
+      { "source": "2", "target": "3", "type": "communication", "bandwidth": "N/A", "latency": "5ms", "traffic": "50Mbps" }
+    ]
+  };
+
+  // 转换数据格式以适应 Cytoscape.js
+  const elements = data.nodes.map(node => ({
+    data: {
+      id: node.id,
+      label: `${node.name}\n${node.ip}`,
+      type: node.type,
+      status: node.status
+    }
+  })).concat(data.edges.map(edge => ({
+    data: {
+      source: edge.source,
+      target: edge.target,
+      label: `Type: ${edge.type}\nTraffic: ${edge.traffic}\nLatency: ${edge.latency}\nBandwidth: ${edge.bandwidth}`
+    }
+  })));
+
+  // 初始化 Cytoscape.js
+  const cy = cytoscape({
+    container: document.getElementById('cy'), // container to render in
+    elements: elements,
+    style: [ // the stylesheet for the graph
+      {
+        selector: 'node',
+        style: {
+          'background-color': 'data(color)',
+          'label': 'data(label)',
+          'text-valign': 'center',
+          'color': '#fff',
+          'font-size': '10px',
+          'width': '50px',
+          'height': '50px',
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          'width': 2,
+          'line-color': '#ccc',
+          'target-arrow-color': '#ccc',
+          'target-arrow-shape': 'triangle',
+          'curve-style': 'bezier',
+          'label': 'data(label)',
+          'font-size': '8px',
+          'color': '#000'
+        }
+      },
+      {
+        selector: '.host',
+        style: {
+          'background-color': 'red'
+        }
+      },
+      {
+        selector: '.service',
+        style: {
+          'background-color': 'blue'
+        }
+      },
+      {
+        selector: '.container',
+        style: {
+          'background-color': 'green'
+        }
+      }
+    ],
+    layout: {
+      name: 'grid',
+      rows: 1
+    }
+  });
+
+  // 根据节点类型添加样式类
+  cy.nodes().forEach(node => {
+    node.addClass(node.data('type'));
+  });
+
+</script>
+
+</body>
+</html>
