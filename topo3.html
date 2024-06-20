@@ -30,6 +30,12 @@
         .sub-row {
             background-color: #f9f9f9;
         }
+        .echarts-tooltip {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -215,6 +221,7 @@
                         <td>${item.duration}</td>
                         <td>${item.request_ip}</td>
                         <td>${item.services.map(function (service) { return service.service; }).join('<br>')}</td>
+                        <td>${item.services.map(function (service) { return service.target_service; }).join('<br>')}</td>
                         <td>${item.status}</td>
                     </tr>
                 `;
@@ -256,7 +263,7 @@
                         <td></td>
                         <td></td>
                         <td>${service.service}</td>
-                        <td></td>
+                        <td>${service.target_service}</td>
                         <td></td>
                     </tr>
                 `;
