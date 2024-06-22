@@ -249,9 +249,25 @@
                     {
                         type: 'graph',
                         layout: 'force',
+                        symbolSize: 50,
+                        roam: true,
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0
+                        },
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: '{b}'
+                        },
+                        edgeSymbol: ['circle', 'arrow'],
+                        edgeSymbolSize: [4, 10],
+                        edgeLabel: {
+                            fontSize: 12
+                        },
                         force: {
-                            repulsion: 100,
-                            edgeLength: 150
+                            repulsion: 1000,
+                            edgeLength: [50, 200]
                         },
                         data: trace.path.map(p => {
                             const node = topologyData.nodes.find(n => n.name === p.service);

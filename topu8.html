@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APM链路性能分析看板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px;
+            width: calc(33% - 40px);
+            min-width: 300px;
+        }
+        .card h3 {
+            margin: 0;
+            padding: 15px;
+            background: #007bff;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        #trace-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        #trace-table th, #trace-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        #trace-table th {
+            background: #007bff;
+            color: #fff;
+        }
+        .trace-row {
+            cursor: pointer;
+        }
+        .expanded-row {
+            background-color: #eaf4ff;
+        }
+        .details-row {
+            background-color: #f9f9f9;
+        }
+        #topology {
+            width: 100%;
+            height: 600px;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="current-service-card">
+            <h3>当前服务</h3>
+            <div class="card-body">
+                <p>服务: N/A</p>
+                <p>请求数: N/A</p>
+                <p>平均响应时间: N/A ms</p>
+                <p>错误率: N/A%</p>
+                <p>IP地址: N/A</p>
+            </div>
+        </div>
+        <div class="card" id="dependent-services-card">
+            <h3>依赖的服务</h3>
+            <div class="card-body">
+                <p>没有数据</p>
+            </div>
+        </div>
+        <div class="card" id="depending-services-card">
+            <h3>被依赖的服务</h3>
+            <div class="card-body">
+                <p>没有数据</p>
+            </div>
+        </div>
+    </div>
+
+    <table id="trace-table">
+        <thead>
+            <tr>
+                <th>Trace ID</th>
+                <th>Request ID</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>持续时间</th>
+                <th>IP地址</th>
+                <th>服务</th>
+            </tr>
+        </thead>
+        <tbody id="trace-table-body">
+        </tbody>
+    </table>
+
+    <div id="topology"></div>
+
+    <script>
+        // 模拟监控数据
+        const monitoringData = [
+            { service: 'nginx', request_count: 1500, avg_response_time: 120, error_rate: 0.01, ip_address: '192.168.1.1', dependencies: ['订单服务', '库存服务'], dependents: ['支付服务', '通知服务'] },
+            { service: '订单服务', request_count: 1000, avg_response_time: 200, error_rate: 0.02, ip_address: '192.168.1.10', dependencies: ['库存服务'], dependents: ['支付服务'] },
+            { service: '库存服务', request_count: 800, avg_response_time: 180, error_rate: 0.015, ip_address: '192.168.1.12', dependencies: [], dependents: ['订单服务'] },
+            { service: '用户服务', request_count: 900, avg_response_time: 160, error_rate: 0.01, ip_address: '192.168.1.11', dependencies: [], dependents: [] },
+            { service: '商品服务', request_count: 950, avg_response_time: 150, error_rate: 0.02, ip_address: '192.168.1.13', dependencies: [], dependents: [] },
+            { service: '购物车服务', request_count: 920, avg_response_time: 130, error_rate: 0.01, ip_address: '192.168.1.14', dependencies: [], dependents: [] },
+            { service: '支付服务', request_count: 1100, avg_response_time: 220, error_rate: 0.03, ip_address: '192.168.1.15', dependencies: ['订单服务'], dependents: ['通知服务'] },
+            { service: '通知服务', request_count: 700, avg_response_time: 140, error_rate: 0.01, ip_address: '192.168.1.16', dependencies: ['支付服务'], dependents: [] }
+        ];
+
+        // 模拟链路追踪数据
+        const traceData = [
+            {
+                id: '1234567890', request_id: 'req1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:05', duration: 5000, ip_address: '192.168.1.1', service: 'nginx',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:01', duration: 1000 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:00:01', end_time: '2024-06-19 10:00:02.5', duration: 1500 },
+                    { service: '库存服务', ip_address: '192.168.1.12', start_time: '2024-06-19 10:00:02.5', end_time: '2024-06-19 10:00:03.5', duration: 1000 },
+                    { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:00:03.5', end_time: '2024-06-19 10:00:05', duration: 1500 }
+                ]
+            },
+            {
+                id: '0987654321', request_id: 'req2', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:03', duration: 3000, ip_address: '192.168.1.13', service: '商品服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:00.8', duration: 800 },
+                    { service: '商品服务', ip_address: '192.168.1.13', start_time: '2024-06-19 10:05:00.8', end_time: '2024-06-19 10:05:01.8', duration: 1000 },
+                    { service: '购物车服务', ip_address: '192.168.1.14', start_time: '2024-06-19 10:05:01.8', end_time: '2024-06-19 10:05:03', duration: 1200 }
+                ]
+            },
+            {
+                id: '1122334455', request_id: 'req3', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:02', duration: 2000, ip_address: '192.168.1.14', service: '购物车服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:00.5', duration: 500 },
+                    { service: '商品服务', ip_address: '192.168.1.13', start_time: '2024-06-19 10:10:00.5', end_time: '2024-06-19 10:10:01.5', duration: 1000 },
+                    { service: '购物车服务', ip_address: '192.168.1.14', start_time: '2024-06-19 10:10:01.5', end_time: '2024-06-19 10:10:02', duration: 500 }
+                ]
+            },
+            {
+                id: '5544332211', request_id: 'req4', start_time: '2024-06-19 10:15:00', end_time: '2024-06-19 10:15:04', duration: 4000, ip_address: '192.168.1.15', service: '支付服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:15:00', end_time: '2024-06-19 10:15:01', duration: 1000 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:15:01', end_time: '2024-06-19 10:15:02.5', duration: 1500 },
+                    { service: '支付服务', ip_address: '192.168.1.15', start_time: '2024-06-19 10:15:02.5', end_time: '2024-06-19 10:15:04', duration: 1500 }
+                ]
+            },
+            {
+                id: '6677889900', request_id: 'req5', start_time: '2024-06-19 10:20:00', end_time: '2024-06-19 10:20:06', duration: 6000, ip_address: '192.168.1.16', service: '通知服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:20:00', end_time: '2024-06-19 10:20:01', duration: 1000 },
+                    { service: '支付服务', ip_address: '192.168.1.15', start_time: '2024-06-19 10:20:01', end_time: '2024-06-19 10:20:03', duration: 2000 },
+                    { service: '通知服务', ip_address: '192.168.1.16', start_time: '2024-06-19 10:20:03', end_time: '2024-06-19 10:20:06', duration: 3000 }
+                ]
+            }
+        ];
+
+        function getColorByCategory(service) {
+            const colors = {
+                'nginx': '#1f77b4',
+                '订单服务': '#ff7f0e',
+                '库存服务': '#2ca02c',
+                '用户服务': '#d62728',
+                '商品服务': '#9467bd',
+                '购物车服务': '#8c564b',
+                '支付服务': '#e377c2',
+                '通知服务': '#7f7f7f'
+            };
+            return colors[service] || '#17becf';
+        }
+
+        function updateCurrentServiceCard(serviceData) {
+            const currentServiceCard = document.getElementById('current-service-card');
+            currentServiceCard.querySelector('.card-body').innerHTML = `
+                <p>服务: ${serviceData.service}</p>
+                <p>请求数: ${serviceData.request_count}</p>
+                <p>平均响应时间: ${serviceData.avg_response_time} ms</p>
+                <p>错误率: ${serviceData.error_rate * 100}%</p>
+                <p>IP地址: ${serviceData.ip_address}</p>
+            `;
+        }
+
+        function updateDependentServicesCard(serviceData) {
+            const dependentServicesCard = document.getElementById('dependent-services-card');
+            if (serviceData.dependencies.length === 0) {
+                dependentServicesCard.querySelector('.card-body').innerHTML = '<p>没有数据</p>';
+            } else {
+                dependentServicesCard.querySelector('.card-body').innerHTML = `
+                    <ul>
+                        ${serviceData.dependencies.map(dep => `<li>${dep}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        function updateDependingServicesCard(serviceData) {
+            const dependingServicesCard = document.getElementById('depending-services-card');
+            if (serviceData.dependents.length === 0) {
+                dependingServicesCard.querySelector('.card-body').innerHTML = '<p>没有数据</p>';
+            } else {
+                dependingServicesCard.querySelector('.card-body').innerHTML = `
+                    <ul>
+                        ${serviceData.dependents.map(dep => `<li>${dep}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+
+        function updateTopology(serviceData) {
+            const topology = echarts.init(document.getElementById('topology'));
+
+            const nodes = [{ name: serviceData.service, category: 0 }];
+            const links = [];
+
+            serviceData.dependencies.forEach(dep => {
+                nodes.push({ name: dep, category: 1 });
+                links.push({ source: dep, target: serviceData.service });
+            });
+
+            serviceData.dependents.forEach(dep => {
+                nodes.push({ name: dep, category: 2 });
+                links.push({ source: serviceData.service, target: dep });
+            });
+
+            const option = {
+                tooltip: {},
+                legend: {
+                    data: ['当前服务', '依赖的服务', '被依赖的服务']
+                },
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'force',
+                        symbolSize: 60,
+                        roam: true,
+                        label: {
+                            show: true
+                        },
+                        edgeSymbol: ['circle', 'arrow'],
+                        edgeSymbolSize: [4, 10],
+                        edgeLabel: {
+                            fontSize: 12
+                        },
+                        categories: [
+                            { name: '当前服务', itemStyle: { color: getColorByCategory(serviceData.service) } },
+                            { name: '依赖的服务', itemStyle: { color: '#ff7f0e' } },
+                            { name: '被依赖的服务', itemStyle: { color: '#2ca02c' } }
+                        ],
+                        data: nodes.map(node => ({
+                            name: node.name,
+                            value: node.name,
+                            category: node.category,
+                            symbolSize: 50,
+                            itemStyle: { color: getColorByCategory(node.name) }
+                        })),
+                        links: links.map(link => ({
+                            source: link.source,
+                            target: link.target
+                        })),
+                        force: {
+                            repulsion: 300
+                        }
+                    }
+                ]
+            };
+
+            topology.setOption(option);
+        }
+
+        function populateTraceTable() {
+            const traceTableBody = document.getElementById('trace-table-body');
+            traceData.forEach(trace => {
+                const row = document.createElement('tr');
+                row.classList.add('trace-row');
+                row.dataset.traceId = trace.id;
+                row.innerHTML = `
+                    <td>${trace.id}</td>
+                    <td>${trace.request_id}</td>
+                    <td>${trace.start_time}</td>
+                    <td>${trace.end_time}</td>
+                    <td>${trace.duration} ms</td>
+                    <td>${trace.ip_address}</td>
+                    <td>${trace.service}</td>
+                `;
+                traceTableBody.appendChild(row);
+            });
+        }
+
+        function handleTraceRowClick(event) {
+            const traceId = event.currentTarget.dataset.traceId;
+            const trace = traceData.find(parseInt(t => t.id ) === traceId);
+
+            // 展示链路详情
+            const detailsRow = document.createElement('tr');
+            detailsRow.classList.add('details-row');
+            detailsRow.innerHTML = `
+                <td colspan="7">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>服务</th>
+                                <th>IP地址</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>持续时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${trace.path.map(p => `
+                                <tr>
+                                    <td>${p.service}</td>
+                                    <td>${p.ip_address}</td>
+                                    <td>${p.start_time}</td>
+                                    <td>${p.end_time}</td>
+                                    <td>${p.duration} ms</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </td>
+            `;
+            event.currentTarget.parentNode.insertBefore(detailsRow, event.currentTarget.nextSibling);
+
+            // 更新服务卡片和拓扑图
+            const serviceData = monitoringData.find(s => s.service === trace.service);
+            updateCurrentServiceCard(serviceData);
+            updateDependentServicesCard(serviceData);
+            updateDependingServicesCard(serviceData);
+            updateTopology(serviceData);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTraceTable();
+            document.querySelectorAll('.trace-row').forEach(row => {
+                row.addEventListener('click', handleTraceRowClick);
+            });
+        });
+    </script>
+</body>
+</html>
