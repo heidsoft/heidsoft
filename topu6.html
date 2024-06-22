@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务监控看板</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .card-header {
+            font-weight: bold;
+        }
+        .trace-row {
+            cursor: pointer;
+        }
+        .trace-row:hover {
+            background-color: #f5f5f5;
+        }
+        .highlighted {
+            background-color: #dff0d8;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4" id="current-service-card"></div>
+        <div class="col-md-4" id="dependent-services-cards"></div>
+        <div class="col-md-4" id="depending-services-cards"></div>
+    </div>
+    <div class="row mt-5">
+        <div id="topology" style="width: 100%; height: 400px;"></div>
+    </div>
+    <div class="row mt-5">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>TraceID</th>
+                <th>Request ID</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>时长 (ms)</th>
+                <th>IP 地址</th>
+                <th>服务</th>
+            </tr>
+            </thead>
+            <tbody id="trace-table-body"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var monitoringData = [
+        {
+            service: '订单服务',
+            request_count: 100,
+            avg_response_time: 150,
+            error_rate: '2%',
+            ip_address: '192.168.1.10',
+            databases: [
+                { name: 'MySQL', host: 'mysql.orderservice.local', port: 3306 }
+            ],
+            redis: { name: 'Redis', host: 'redis.orderservice.local', port: 6379 },
+            dependencies: ['商品服务', '库存服务'],
+            dependents: ['购物车服务', '用户服务']
+        },
+        {
+            service: '用户服务',
+            request_count: 80,
+            avg_response_time: 100,
+            error_rate: '1%',
+            ip_address: '192.168.1.11',
+            databases: [
+                { name: 'MySQL', host: 'mysql.userservice.local', port: 3306 }
+            ],
+            redis: { name: 'Redis', host: 'redis.userservice.local', port: 6379 },
+            dependencies: [],
+            dependents: ['订单服务']
+        },
+        {
+            service: '商品服务',
+            request_count: 60,
+            avg_response_time: 130,
+            error_rate: '3%',
+            ip_address: '192.168.1.12',
+            databases: [
+                { name: 'PostgreSQL', host: 'postgres.productservice.local', port: 5432 }
+            ],
+            redis: { name: 'Redis', host: 'redis.productservice.local', port: 6379 },
+            dependencies: [],
+            dependents: ['订单服务']
+        },
+        {
+            service: '库存服务',
+            request_count: 50,
+            avg_response_time: 140,
+            error_rate: '4%',
+            ip_address: '192.168.1.13',
+            databases: [
+                { name: 'PostgreSQL', host: 'postgres.inventoryservice.local', port: 5432 }
+            ],
+            redis: { name: 'Redis', host: 'redis.inventoryservice.local', port: 6379 },
+            dependencies: [],
+            dependents: ['订单服务']
+        },
+        {
+            service: '购物车服务',
+            request_count: 70,
+            avg_response_time: 120,
+            error_rate: '1.5%',
+            ip_address: '192.168.1.14',
+            databases: [
+                { name: 'MySQL', host: 'mysql.cartservice.local', port: 3306 }
+            ],
+            redis: { name: 'Redis', host: 'redis.cartservice.local', port: 6379 },
+            dependencies: ['订单服务'],
+            dependents: []
+        }
+    ];
+
+    var traceData = [
+        {
+            id: '1234567890',
+            request_id: 'req1',
+            start_time: '2024-06-19 10:00:00',
+            end_time: '2024-06-19 10:00:02',
+            duration: 2000,
+            ip_address: '192.168.1.10',
+            service: '订单服务',
+            path: [
+                { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:00.4', duration: 400 },
+                { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:00:00.4', end_time: '2024-06-19 10:00:01', duration: 600 },
+                { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:00:01', end_time: '2024-06-19 10:00:02', duration: 1000 }
+            ]
+        },
+        {
+            id: '2345678901',
+            request_id: 'req2',
+            start_time: '2024-06-19 10:05:00',
+            end_time: '2024-06-19 10:05:03',
+            duration: 3000,
+            ip_address: '192.168.1.12',
+            service: '商品服务',
+            path: [
+                { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:00.5', duration: 500 },
+                { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:05:00.5', end_time: '2024-06-19 10:05:01', duration: 500 },
+                { service: '商品服务', ip_address: '192.168.1.12', start_time: '2024-06-19 10:05:01', end_time: '2024-06-19 10:05:03', duration: 2000 }
+            ]
+        },
+        {
+            id: '3456789012',
+            request_id: 'req3',
+            start_time: '2024-06-19 10:10:00',
+            end_time: '2024-06-19 10:10:02',
+            duration: 2000,
+            ip_address: '192.168.1.14',
+            service: '购物车服务',
+            path: [
+                { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:00.3', duration: 300 },
+                { service: '购物车服务', ip_address: '192.168.1.14', start_time: '2024-06-19 10:10:00.3', end_time: '2024-06-19 10:10:01', duration: 700 },
+                { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:10:01', end_time: '2024-06-19 10:10:02', duration: 1000 }
+            ]
+        },
+        {
+            id: '4567890123',
+            request_id: 'req4',
+            start_time: '2024-06-19 10:15:00',
+            end_time: '2024-06-19 10:15:02',
+            duration: 2000,
+            ip_address: '192.168.1.11',
+            service: '用户服务',
+            path: [
+                { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:15:00', end_time: '2024-06-19 10:15:00.4', duration: 400 },
+                { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:15:00.4', end_time: '2024-06-19 10:15:01', duration: 600 },
+                { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:15:01', end_time: '2024-06-19 10:15:02', duration: 1000 }
+            ]
+        }
+    ];
+
+    function renderTopology(path) {
+        const nodes = [];
+        const links = [];
+        const serviceSet = new Set();
+
+        monitoringData.forEach(service => {
+            nodes.push({
+                id: service.service,
+                name: service.service,
+                itemStyle: {
+                    color: service.service === '订单服务' ? '#ff7f50' : '#87cefa'
+                }
+            });
+            serviceSet.add(service.service);
+        });
+
+        // 如果提供了完整路径信息，则按照完整路径来渲染拓扑图
+        if (path && path.length > 0) {
+            path.forEach((step, index) => {
+                const currentNode = nodes.find(node => node.id === step.service);
+                if (currentNode) {
+                    currentNode.itemStyle = {
+                        color: '#ff0000' // 标记路径上的节点为红色
+                    };
+
+                    // 连接当前节点和下一个节点
+                    if (index < path.length - 1) {
+                        const nextNode = nodes.find(node => node.id === path[index + 1].service);
+                        if (nextNode) {
+                            links.push({
+                                source: currentNode.id,
+                                target: nextNode.id,
+                                lineStyle: {
+                                    color: '#ff0000' // 使用红色表示路径
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        } else {
+            // 默认情况下，只显示依赖关系
+            monitoringData.forEach(service => {
+                service.dependencies.forEach(dep => {
+                    links.push({
+                        source: service.service,
+                        target: dep,
+                        lineStyle: {
+                            color: '#87cefa'
+                        }
+                    });
+                });
+            });
+        }
+
+        const chart = echarts.init(document.getElementById('topology'));
+        chart.setOption({
+            series: [{
+                type: 'graph',
+                layout: 'force',
+                force: {
+                    repulsion: 200
+                },
+                data: nodes,
+                links: links,
+                roam: true,
+                label: {
+                    show: true,
+                    position: 'right'
+                },
+                lineStyle: {
+                    width: 2,
+                    curveness: 0
+                }
+            }]
+        });
+    }
+
+    $(document).ready(function () {
+        // 点击跟踪行时更新拓扑图
+        $(document).on('click', '.trace-row', function () {
+            const traceId = $(this).data('trace-id');
+            const trace = traceData.find(trace => trace.id === traceId);
+
+            if (trace) {
+                renderTopology(trace.path);
+            } else {
+                console.log(`Trace with ID '${traceId}' not found.`);
+            }
+        });
+
+        // 初始化页面显示
+        const traceTableBody = $('#trace-table-body');
+        traceData.forEach(trace => {
+            traceTableBody.append(`
+                <tr class="trace-row" data-trace-id="${trace.id}">
+                    <td>${trace.id}</td>
+                    <td>${trace.request_id}</td>
+                    <td>${trace.start_time}</td>
+                    <td>${trace.end_time}</td>
+                    <td>${trace.duration}</td>
+                    <td>${trace.ip_address}</td>
+                    <td>${trace.service}</td>
+                </tr>
+            `);
+        });
+
+        // 默认显示第一个 trace 的拓扑图
+        if (traceData.length > 0) {
+            renderTopology(traceData[0].path);
+        }
+    });
+
+</script>
+
+</body>
+</html>

@@ -39,6 +39,13 @@
         .highlight {
             border: 2px solid #ff0000;
         }
+        .trace-row:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .expanded-row {
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 <body>
@@ -144,49 +151,73 @@
         ];
 
         var traceData = [
-            { id: '1234567890', request_id: 'req1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:02', duration: 2000, ip_address: '192.168.1.10', service: '订单服务' },
-            { id: '0987654321', request_id: 'req2', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:01', duration: 1000, ip_address: '192.168.1.11', service: '用户服务' }
-            // 添加更多 trace 信息...
+            {
+                id: '1234567890', request_id: 'req1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:02', duration: 2000, ip_address: '192.168.1.10', service: '订单服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:00.5', duration: 500 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:00:00.5', end_time: '2024-06-19 10:00:01', duration: 500 },
+                    { service: '商品服务', ip_address: '192.168.1.12', start_time: '2024-06-19 10:00:01', end_time: '2024-06-19 10:00:01.5', duration: 500 },
+                    { service: '库存服务', ip_address: '192.168.1.13', start_time: '2024-06-19 10:00:01.5', end_time: '2024-06-19 10:00:02', duration: 500 }
+                ]
+            },
+            {
+                id: '0987654321', request_id: 'req2', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:01', duration: 1000, ip_address: '192.168.1.11', service: '用户服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:00.2', duration: 200 },
+                    { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:05:00.2', end_time: '2024-06-19 10:05:00.7', duration: 500 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:05:00.7', end_time: '2024-06-19 10:05:01', duration: 300 }
+                ]
+            },
+            {
+                id: '1122334455', request_id: 'req3', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:02', duration: 2000, ip_address: '192.168.1.14', service: '购物车服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.1', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:00.4', duration: 400 },
+                    { service: '购物车服务', ip_address: '192.168.1.14', start_time: '2024-06-19 10:10:00.4', end_time: '2024-06-19 10:10:01', duration: 600 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:10:01', end_time: '2024-06-19 10:10:02', duration: 1000 }
+                ]
+            }
+            // 添加更多trace数据...
         ];
 
         var topologyData = {
             nodes: [
-                { id: 'nginx', name: 'Nginx' },
+                { id: 'nginx', name: 'nginx' },
                 { id: 'orderservice', name: '订单服务' },
                 { id: 'userservice', name: '用户服务' },
                 { id: 'productservice', name: '商品服务' },
                 { id: 'inventoryservice', name: '库存服务' },
                 { id: 'cartservice', name: '购物车服务' },
-                { id: 'mysql_orderservice', name: 'MySQL - 订单服务' },
-                { id: 'mongodb_orderservice', name: 'MongoDB - 订单服务' },
-                { id: 'mysql_userservice', name: 'MySQL - 用户服务' },
-                { id: 'postgres_productservice', name: 'PostgreSQL - 商品服务' },
-                { id: 'postgres_inventoryservice', name: 'PostgreSQL - 库存服务' },
-                { id: 'redis_orderservice', name: 'Redis - 订单服务' },
-                { id: 'redis_userservice', name: 'Redis - 用户服务' },
-                { id: 'redis_productservice', name: 'Redis - 商品服务' },
-                { id: 'redis_inventoryservice', name: 'Redis - 库存服务' },
-                { id: 'mysql_cartservice', name: 'MySQL - 购物车服务' },
-                { id: 'redis_cartservice', name: 'Redis - 购物车服务' }
+                { id: 'mysql_orderservice', name: 'MySQL (orderservice)' },
+                { id: 'mongodb_orderservice', name: 'MongoDB (orderservice)' },
+                { id: 'redis_orderservice', name: 'Redis (orderservice)' },
+                { id: 'mysql_userservice', name: 'MySQL (userservice)' },
+                { id: 'redis_userservice', name: 'Redis (userservice)' },
+                { id: 'postgres_productservice', name: 'PostgreSQL (productservice)' },
+                { id: 'redis_productservice', name: 'Redis (productservice)' },
+                { id: 'postgres_inventoryservice', name: 'PostgreSQL (inventoryservice)' },
+                { id: 'redis_inventoryservice', name: 'Redis (inventoryservice)' },
+                { id: 'mysql_cartservice', name: 'MySQL (cartservice)' },
+                { id: 'redis_cartservice', name: 'Redis (cartservice)' }
             ],
             edges: [
-                { source: 'nginx', target: 'orderservice', call_count: 100, avg_response_time: 200 },
-                { source: 'nginx', target: 'userservice', call_count: 80, avg_response_time: 180 },
-                { source: 'nginx', target: 'productservice', call_count: 120, avg_response_time: 150 },
-                { source: 'orderservice', target: 'productservice', call_count: 1000, avg_response_time: 300 },
-                { source: 'orderservice', target: 'inventoryservice', call_count: 1000, avg_response_time: 300 },
-                { source: 'orderservice', target: 'mysql_orderservice', call_count: 1000, avg_response_time: 300 },
-                { source: 'orderservice', target: 'mongodb_orderservice', call_count: 1000, avg_response_time: 300 },
-                { source: 'orderservice', target: 'redis_orderservice', call_count: 1000, avg_response_time: 300 },
-                { source: 'userservice', target: 'mysql_userservice', call_count: 800, avg_response_time: 250 },
-                { source: 'userservice', target: 'redis_userservice', call_count: 800, avg_response_time: 250 },
-                { source: 'productservice', target: 'postgres_productservice', call_count: 1200, avg_response_time: 200 },
-                { source: 'productservice', target: 'redis_productservice', call_count: 1200, avg_response_time: 200 },
-                { source: 'inventoryservice', target: 'postgres_inventoryservice', call_count: 600, avg_response_time: 200 },
-                { source: 'inventoryservice', target: 'redis_inventoryservice', call_count: 600, avg_response_time: 200 },
-                { source: 'cartservice', target: 'orderservice', call_count: 500, avg_response_time: 250 },
-                { source: 'cartservice', target: 'mysql_cartservice', call_count: 500, avg_response_time: 250 },
-                { source: 'cartservice', target: 'redis_cartservice', call_count: 500, avg_response_time: 250 }
+                { source: 'nginx', target: 'orderservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'nginx', target: 'userservice', call_count: 800, avg_response_time: 200 },
+                { source: 'nginx', target: 'cartservice', call_count: 500, avg_response_time: 210 },
+                { source: 'orderservice', target: 'productservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'orderservice', target: 'inventoryservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'orderservice', target: 'mysql_orderservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'orderservice', target: 'mongodb_orderservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'orderservice', target: 'redis_orderservice', call_count: 1000, avg_response_time: 150 },
+                { source: 'userservice', target: 'orderservice', call_count: 800, avg_response_time: 200 },
+                { source: 'userservice', target: 'mysql_userservice', call_count: 800, avg_response_time: 200 },
+                { source: 'userservice', target: 'redis_userservice', call_count: 800, avg_response_time: 200 },
+                { source: 'productservice', target: 'postgres_productservice', call_count: 1200, avg_response_time: 180 },
+                { source: 'productservice', target: 'redis_productservice', call_count: 1200, avg_response_time: 180 },
+                { source: 'inventoryservice', target: 'postgres_inventoryservice', call_count: 600, avg_response_time: 170 },
+                { source: 'inventoryservice', target: 'redis_inventoryservice', call_count: 600, avg_response_time: 170 },
+                { source: 'cartservice', target: 'orderservice', call_count: 500, avg_response_time: 210 },
+                { source: 'cartservice', target: 'mysql_cartservice', call_count: 500, avg_response_time: 210 },
+                { source: 'cartservice', target: 'redis_cartservice', call_count: 500, avg_response_time: 210 }
             ]
         };
 
@@ -209,14 +240,6 @@
 
             var header = document.createElement('div');
             header.className = 'card-header';
-            if (service.error_rate > 0.15) {
-                header.className += ' bg-danger text-white';
-            } else if (service.error_rate > 0.05) {
-                header.className += ' bg-warning text-dark';
-            } else {
-                header.className += ' bg-success text-white';
-            }
-
             header.textContent = service.service;
             card.appendChild(header);
 
@@ -249,14 +272,6 @@
 
                 var header = document.createElement('div');
                 header.className = 'card-header';
-                if (service.error_rate > 0.15) {
-                    header.className += ' bg-danger text-white';
-                } else if (service.error_rate > 0.05) {
-                    header.className += ' bg-warning text-dark';
-                } else {
-                    header.className += ' bg-success text-white';
-                }
-
                 header.textContent = service.service;
                 card.appendChild(header);
 
@@ -280,7 +295,7 @@
             });
         }
 
-        function renderTopology(highlightedService) {
+        function renderTopology(highlightedServices = []) {
             var myChart = echarts.init(document.getElementById('topology'));
 
             var option = {
@@ -311,7 +326,7 @@
                             return {
                                 name: node.name,
                                 id: node.id,
-                                itemStyle: node.id === highlightedService ? { color: '#ff0000' } : {}
+                                itemStyle: highlightedServices.includes(node.id) ? { color: '#ff0000' } : {}
                             };
                         }),
                         links: topologyData.edges.map(function (edge) {
@@ -338,11 +353,14 @@
         }
 
         function renderTraceTable() {
-            var tbody = document.getElementById('trace-table-body');
-            tbody.innerHTML = '';
+            var traceTableBody = document.getElementById('trace-table-body');
+            traceTableBody.innerHTML = '';
 
             traceData.forEach(function (trace) {
                 var row = document.createElement('tr');
+                row.className = 'trace-row';
+                row.setAttribute('data-trace-id', trace.id);
+
                 row.innerHTML = '<td>' + trace.id + '</td>' +
                     '<td>' + trace.request_id + '</td>' +
                     '<td>' + trace.start_time + '</td>' +
@@ -351,34 +369,23 @@
                     '<td>' + trace.ip_address + '</td>' +
                     '<td>' + trace.service + '</td>';
 
-                row.addEventListener('click', function () {
-                    var childRows = traceData.filter(function (item) {
-                        return item.id === trace.id;
-                    }).map(function (item) {
-                        return '<tr class="child-row"><td colspan="7">服务: ' + item.service + ', IP地址: ' + item.ip_address + ', 开始时间: ' + item.start_time + ', 结束时间: ' + item.end_time + ', 时长: ' + item.duration + ' ms</td></tr>';
-                    }).join('');
-
-                    if (this.classList.contains('expanded')) {
-                        this.classList.remove('expanded');
-                        var nextRow = this.nextElementSibling;
-                        while (nextRow && nextRow.classList.contains('child-row')) {
-                            var temp = nextRow.nextElementSibling;
-                            nextRow.remove();
-                            nextRow = temp;
-                        }
-                    } else {
-                        this.classList.add('expanded');
-                        this.insertAdjacentHTML('afterend', childRows);
-                    }
-                });
-
-                tbody.appendChild(row);
+                traceTableBody.appendChild(row);
             });
         }
 
-        // Initial rendering
+        $(document).on('click', '.trace-row', function () {
+            var traceId = $(this).data('trace-id');
+            var trace = traceData.find(function (t) { return t.id === traceId; });
+
+            if (trace) {
+                var traceServices = trace.path.map(function (step) { return step.service; });
+                renderTopology(traceServices);
+            }
+        });
+
+        // 初始加载订单服务数据
         showServicePanel('订单服务');
-        renderTopology('orderservice');
+        renderTopology(['orderservice']);
         renderTraceTable();
     </script>
 </body>

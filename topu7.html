@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APM链路性能分析看板</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 16px;
+            margin: 16px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .card .card-body {
+            padding: 10px;
+        }
+        #topology {
+            width: 100%;
+            height: 800px; /* Increase the height of the topology chart */
+            margin: 16px 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #trace-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        #trace-table th, #trace-table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        #trace-table th {
+            background-color: #f2f2f2;
+        }
+        .expanded-row {
+            background-color: #e0f7fa;
+        }
+    </style>
+</head>
+<body>
+    <h1>APM链路性能分析看板</h1>
+    <div id="current-service-card" class="card">
+        <h3>当前服务</h3>
+        <div class="card-body"></div>
+    </div>
+    <div id="dependent-services-card" class="card">
+        <h3>依赖的服务</h3>
+        <div class="card-body"></div>
+    </div>
+    <div id="depending-services-card" class="card">
+        <h3>被依赖的服务</h3>
+        <div class="card-body"></div>
+    </div>
+    <div id="topology"></div>
+    <table id="trace-table">
+        <thead>
+            <tr>
+                <th>Trace ID</th>
+                <th>Request ID</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration (ms)</th>
+                <th>IP Address</th>
+                <th>Service</th>
+            </tr>
+        </thead>
+        <tbody id="trace-table-body"></tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script>
+        // 示例监控数据
+        const monitoringData = [
+            { service: '订单服务', request_count: 1000, avg_response_time: 200, error_rate: 0.01, ip_address: '192.168.1.10', dependencies: ['库存服务', '用户服务'], dependents: ['商品服务'] },
+            { service: '用户服务', request_count: 800, avg_response_time: 150, error_rate: 0.02, ip_address: '192.168.1.11', dependencies: [], dependents: ['订单服务'] },
+            { service: '商品服务', request_count: 600, avg_response_time: 250, error_rate: 0.03, ip_address: '192.168.1.12', dependencies: ['订单服务'], dependents: [] },
+            { service: '库存服务', request_count: 400, avg_response_time: 100, error_rate: 0.01, ip_address: '192.168.1.13', dependencies: [], dependents: ['订单服务'] },
+            { service: '购物车服务', request_count: 500, avg_response_time: 180, error_rate: 0.015, ip_address: '192.168.1.14', dependencies: ['用户服务', '订单服务'], dependents: [] },
+            { service: '支付服务', request_count: 900, avg_response_time: 120, error_rate: 0.005, ip_address: '192.168.1.15', dependencies: ['订单服务'], dependents: ['通知服务'] },
+            { service: '通知服务', request_count: 300, avg_response_time: 80, error_rate: 0.02, ip_address: '192.168.1.16', dependencies: ['支付服务'], dependents: [] }
+        ];
+
+        // 示例链路数据
+        const traceData = [
+            {
+                id: '1234567890', request_id: 'req1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:03', duration: 3000, ip_address: '192.168.1.10', service: '订单服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.4', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:00.5', duration: 500 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:00:00.5', end_time: '2024-06-19 10:00:01.5', duration: 1000 },
+                    { service: '库存服务', ip_address: '192.168.1.13', start_time: '2024-06-19 10:00:01.5', end_time: '2024-06-19 10:00:02', duration: 500 },
+                    { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:00:02', end_time: '2024-06-19 10:00:03', duration: 1000 }
+                ]
+            },
+            {
+                id: '0987654321', request_id: 'req2', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:05', duration: 5000, ip_address: '192.168.1.12', service: '商品服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.4', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:00.5', duration: 500 },
+                    { service: '商品服务', ip_address: '192.168.1.12', start_time: '2024-06-19 10:05:00.5', end_time: '2024-06-19 10:05:01.5', duration: 1000 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:05:01.5', end_time: '2024-06-19 10:05:03', duration: 1500 },
+                    { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:05:03', end_time: '2024-06-19 10:05:05', duration: 2000 }
+                ]
+            },
+            {
+                id: '1122334455', request_id: 'req3', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:02', duration: 2000, ip_address: '192.168.1.14', service: '购物车服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.4', start_time: '2024-06-19 10:10:00', end_time: '2024-06-19 10:10:00.4', duration: 400 },
+                    { service: '购物车服务', ip_address: '192.168.1.14', start_time: '2024-06-19 10:10:00.4', end_time: '2024-06-19 10:10:01.4', duration: 1000 },
+                    { service: '用户服务', ip_address: '192.168.1.11', start_time: '2024-06-19 10:10:01.4', end_time: '2024-06-19 10:10:02', duration: 600 }
+                ]
+            },
+            {
+                id: '6677889900', request_id: 'req4', start_time: '2024-06-19 10:15:00', end_time: '2024-06-19 10:15:04', duration: 4000, ip_address: '192.168.1.15', service: '支付服务',
+                path: [
+                    { service: 'nginx', ip_address: '192.168.1.4', start_time: '2024-06-19 10:15:00', end_time: '2024-06-19 10:15:00.6', duration: 600 },
+                    { service: '支付服务', ip_address: '192.168.1.15', start_time: '2024-06-19 10:15:00.6', end_time: '2024-06-19 10:15:02', duration: 1400 },
+                    { service: '订单服务', ip_address: '192.168.1.10', start_time: '2024-06-19 10:15:02', end_time: '2024-06-19 10:15:03', duration: 1000 },
+                    { service: '通知服务', ip_address: '192.168.1.16', start_time: '2024-06-19 10:15:03', end_time: '2024-06-19 10:15:04', duration: 1000 }
+                ]
+            }
+        ];
+
+        // 更新服务卡片
+        function updateServiceCard(cardId, service) {
+            const card = document.getElementById(cardId);
+            const data = monitoringData.find(m => m.service === service);
+            if (!data) return;
+            card.querySelector('.card-body').innerHTML = `
+                <p>服务: ${data.service}</p>
+                <p>请求数: ${data.request_count}</p>
+                <p>平均响应时间: ${data.avg_response_time} ms</p>
+                <p>错误率: ${data.error_rate * 100}%</p>
+                <p>IP地址: ${data.ip_address}</p>
+            `;
+        }
+
+        // 更新当前服务卡片
+        function updateCurrentServiceCard(service) {
+            updateServiceCard('current-service-card', service);
+        }
+
+        // 更新依赖的服务卡片
+        function updateDependentServicesCard(service) {
+            const card = document.getElementById('dependent-services-card');
+            const data = monitoringData.find(m => m.service === service);
+            if (!data) return;
+            card.querySelector('.card-body').innerHTML = data.dependencies.map(dep => `
+                <div>
+                    <p>服务: ${dep}</p>
+                    <p>请求数: ${monitoringData.find(m => m.service === dep).request_count}</p>
+                    <p>平均响应时间: ${monitoringData.find(m => m.service === dep).avg_response_time} ms</p>
+                    <p>错误率: ${monitoringData.find(m => m.service === dep).error_rate * 100}%</p>
+                    <p>IP地址: ${monitoringData.find(m => m.service === dep).ip_address}</p>
+                </div>
+            `).join('');
+        }
+
+        // 更新被依赖的服务卡片
+        function updateDependingServicesCard(service) {
+            const card = document.getElementById('depending-services-card');
+            const data = monitoringData.find(m => m.service === service);
+            if (!data) return;
+            card.querySelector('.card-body').innerHTML = data.dependents.map(dep => `
+                <div>
+                    <p>服务: ${dep}</p>
+                    <p>请求数: ${monitoringData.find(m => m.service === dep).request_count}</p>
+                    <p>平均响应时间: ${monitoringData.find(m => m.service === dep).avg_response_time} ms</p>
+                    <p>错误率: ${monitoringData.find(m => m.service === dep).error_rate * 100}%</p>
+                    <p>IP地址: ${monitoringData.find(m => m.service === dep).ip_address}</p>
+                </div>
+            `).join('');
+        }
+
+        // 构建链路追踪表
+        function buildTraceTable() {
+            const tbody = document.getElementById('trace-table-body');
+            traceData.forEach(trace => {
+                const row = document.createElement('tr');
+                row.classList.add('trace-row');
+                row.setAttribute('data-trace-id', trace.id);
+                row.innerHTML = `
+                    <td>${trace.id}</td>
+                    <td>${trace.request_id}</td>
+                    <td>${trace.start_time}</td>
+                    <td>${trace.end_time}</td>
+                    <td>${trace.duration}</td>
+                    <td>${trace.ip_address}</td>
+                    <td>${trace.service}</td>
+                `;
+                row.addEventListener('click', () => updateTopology(trace));
+                tbody.appendChild(row);
+            });
+        }
+
+        // 示例拓扑数据
+        const topologyData = {
+            nodes: [
+                { name: 'nginx', category: 0 },
+                { name: '订单服务', category: 1 },
+                { name: '库存服务', category: 2 },
+                { name: '用户服务', category: 3 },
+                { name: '商品服务', category: 4 },
+                { name: '购物车服务', category: 5 },
+                { name: '支付服务', category: 6 },
+                { name: '通知服务', category: 7 }
+            ]
+        };
+
+        // 更新拓扑图
+        function updateTopology(trace) {
+            const topologyChart = echarts.init(document.getElementById('topology'));
+            const option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        if (params.dataType === 'edge') {
+                            const source = params.data.source;
+                            const target = params.data.target;
+                            const duration = trace.path.find(p => p.service === target).duration;
+                            return `链路: ${source} → ${target}<br>持续时间: ${duration} ms`;
+                        }
+                        return params.data.name;
+                    }
+                },
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'force',
+                        force: {
+                            repulsion: 100,
+                            edgeLength: 150
+                        },
+                        data: trace.path.map(p => {
+                            const node = topologyData.nodes.find(n => n.name === p.service);
+                            return {
+                                name: p.service,
+                                category: node ? node.category : 0,
+                                itemStyle: {
+                                    color: getColorByCategory(node ? node.category : 0)
+                                }
+                            };
+                        }),
+                        links: trace.path.map((p, i) => {
+                            if (i === 0) return null;
+                            return { source: trace.path[i - 1].service, target: p.service };
+                        }).filter(link => link)
+                    }
+                ]
+            };
+            topologyChart.setOption(option);
+
+            // 高亮选中的链路行
+            document.querySelectorAll('.trace-row').forEach(row => row.classList.remove('expanded-row'));
+            document.querySelector(`.trace-row[data-trace-id="${trace.id}"]`).classList.add('expanded-row');
+
+            // 更新当前服务卡片
+            updateCurrentServiceCard(trace.service);
+
+            // 更新依赖的服务卡片
+            updateDependentServicesCard(trace.service);
+
+            // 更新被依赖的服务卡片
+            updateDependingServicesCard(trace.service);
+        }
+
+        // 根据类别返回颜色
+        function getColorByCategory(category) {
+            const colors = ['#ff7f50', '#87cefa', '#da70d6', '#32cd32', '#6495ed', '#ff69b4', '#ba55d3', '#cd5c5c', '#ffa500', '#40e0d0'];
+            return colors[category % colors.length];
+        }
+
+        // 初始化页面
+        buildTraceTable();
+        updateTopology(traceData[0]); // 默认显示第一个链路的信息
+
+    </script>
+</body>
+</html>
