@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微服务监控看板</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .card-body {
+            padding: 10px;
+        }
+        .echart {
+            width: 100%;
+            height: 400px;
+        }
+        .arrow {
+            marker-end: url(#arrowhead);
+        }
+        .child-row {
+            background-color: #f9f9f9;
+        }
+        .highlight {
+            border: 2px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">微服务监控看板</h1>
+        <div id="current-service-card" class="card">
+            <div class="card-header">当前服务 - 订单服务</div>
+            <div class="card-body">
+                <p>Loading...</p>
+            </div>
+        </div>
+        <div id="dependent-services-card" class="card">
+            <div class="card-header">订单服务依赖的服务</div>
+            <div class="card-body" id="dependent-services-cards">
+                <p>Loading...</p>
+            </div>
+        </div>
+        <div id="depending-services-card" class="card">
+            <div class="card-header">依赖订单服务的服务</div>
+            <div class="card-body" id="depending-services-cards">
+                <p>Loading...</p>
+            </div>
+        </div>
+        <div id="topology" class="echart"></div>
+        <table class="table table-bordered mt-4" id="trace-table">
+            <thead>
+                <tr>
+                    <th>Trace ID</th>
+                    <th>请求ID</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>时长 (ms)</th>
+                    <th>IP地址</th>
+                    <th>服务名称</th>
+                </tr>
+            </thead>
+            <tbody id="trace-table-body">
+                <!-- Trace table rows will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var monitoringData = [
+            {
+                service: '订单服务',
+                request_count: 1000,
+                avg_response_time: 150,
+                error_rate: 0.05,
+                ip_address: '192.168.1.10',
+                databases: [
+                    { name: 'MySQL', host: 'mysql.orderservice.com', port: 3306 },
+                    { name: 'MongoDB', host: 'mongodb.orderservice.com', port: 27017 }
+                ],
+                redis: { name: 'Redis Cluster', host: 'redis.orderservice.com', port: 6379 },
+                dependencies: ['商品服务', '库存服务'],
+                dependents: ['购物车服务', '用户服务']
+            },
+            {
+                service: '用户服务',
+                request_count: 800,
+                avg_response_time: 200,
+                error_rate: 0.1,
+                ip_address: '192.168.1.11',
+                databases: [
+                    { name: 'MySQL', host: 'mysql.userservice.com', port: 3306 }
+                ],
+                redis: { name: 'Redis Standalone', host: 'redis.userservice.com', port: 6379 }
+            },
+            {
+                service: '商品服务',
+                request_count: 1200,
+                avg_response_time: 180,
+                error_rate: 0.07,
+                ip_address: '192.168.1.12',
+                databases: [
+                    { name: 'PostgreSQL', host: 'postgres.productservice.com', port: 5432 }
+                ],
+                redis: { name: 'Redis Cluster', host: 'redis.productservice.com', port: 6379 }
+            },
+            {
+                service: '库存服务',
+                request_count: 600,
+                avg_response_time: 170,
+                error_rate: 0.03,
+                ip_address: '192.168.1.13',
+                databases: [
+                    { name: 'PostgreSQL', host: 'postgres.inventoryservice.com', port: 5432 }
+                ],
+                redis: { name: 'Redis Cluster', host: 'redis.inventoryservice.com', port: 6379 }
+            },
+            {
+                service: '购物车服务',
+                request_count: 500,
+                avg_response_time: 210,
+                error_rate: 0.09,
+                ip_address: '192.168.1.14',
+                databases: [
+                    { name: 'MySQL', host: 'mysql.cartservice.com', port: 3306 }
+                ],
+                redis: { name: 'Redis Standalone', host: 'redis.cartservice.com', port: 6379 }
+            }
+            // 添加更多服务信息...
+        ];
+
+        var traceData = [
+            { id: '1234567890', request_id: 'req1', start_time: '2024-06-19 10:00:00', end_time: '2024-06-19 10:00:02', duration: 2000, ip_address: '192.168.1.10', service: '订单服务' },
+            { id: '0987654321', request_id: 'req2', start_time: '2024-06-19 10:05:00', end_time: '2024-06-19 10:05:01', duration: 1000, ip_address: '192.168.1.11', service: '用户服务' }
+            // 添加更多 trace 信息...
+        ];
+
+        var topologyData = {
+            nodes: [
+                { id: 'nginx', name: 'Nginx' },
+                { id: 'orderservice', name: '订单服务' },
+                { id: 'userservice', name: '用户服务' },
+                { id: 'productservice', name: '商品服务' },
+                { id: 'inventoryservice', name: '库存服务' },
+                { id: 'cartservice', name: '购物车服务' },
+                { id: 'mysql_orderservice', name: 'MySQL - 订单服务' },
+                { id: 'mongodb_orderservice', name: 'MongoDB - 订单服务' },
+                { id: 'mysql_userservice', name: 'MySQL - 用户服务' },
+                { id: 'postgres_productservice', name: 'PostgreSQL - 商品服务' },
+                { id: 'postgres_inventoryservice', name: 'PostgreSQL - 库存服务' },
+                { id: 'redis_orderservice', name: 'Redis - 订单服务' },
+                { id: 'redis_userservice', name: 'Redis - 用户服务' },
+                { id: 'redis_productservice', name: 'Redis - 商品服务' },
+                { id: 'redis_inventoryservice', name: 'Redis - 库存服务' },
+                { id: 'mysql_cartservice', name: 'MySQL - 购物车服务' },
+                { id: 'redis_cartservice', name: 'Redis - 购物车服务' }
+            ],
+            edges: [
+                { source: 'nginx', target: 'orderservice', call_count: 100, avg_response_time: 200 },
+                { source: 'nginx', target: 'userservice', call_count: 80, avg_response_time: 180 },
+                { source: 'nginx', target: 'productservice', call_count: 120, avg_response_time: 150 },
+                { source: 'orderservice', target: 'productservice', call_count: 1000, avg_response_time: 300 },
+                { source: 'orderservice', target: 'inventoryservice', call_count: 1000, avg_response_time: 300 },
+                { source: 'orderservice', target: 'mysql_orderservice', call_count: 1000, avg_response_time: 300 },
+                { source: 'orderservice', target: 'mongodb_orderservice', call_count: 1000, avg_response_time: 300 },
+                { source: 'orderservice', target: 'redis_orderservice', call_count: 1000, avg_response_time: 300 },
+                { source: 'userservice', target: 'mysql_userservice', call_count: 800, avg_response_time: 250 },
+                { source: 'userservice', target: 'redis_userservice', call_count: 800, avg_response_time: 250 },
+                { source: 'productservice', target: 'postgres_productservice', call_count: 1200, avg_response_time: 200 },
+                { source: 'productservice', target: 'redis_productservice', call_count: 1200, avg_response_time: 200 },
+                { source: 'inventoryservice', target: 'postgres_inventoryservice', call_count: 600, avg_response_time: 200 },
+                { source: 'inventoryservice', target: 'redis_inventoryservice', call_count: 600, avg_response_time: 200 },
+                { source: 'cartservice', target: 'orderservice', call_count: 500, avg_response_time: 250 },
+                { source: 'cartservice', target: 'mysql_cartservice', call_count: 500, avg_response_time: 250 },
+                { source: 'cartservice', target: 'redis_cartservice', call_count: 500, avg_response_time: 250 }
+            ]
+        };
+
+        function showServicePanel(serviceName) {
+            var currentServiceData = monitoringData.find(function (item) { return item.service === serviceName; });
+            var dependentServicesData = monitoringData.filter(function (item) { return currentServiceData.dependencies.includes(item.service); });
+            var dependingServicesData = monitoringData.filter(function (item) { return currentServiceData.dependents.includes(item.service); });
+
+            renderMonitoringCard(currentServiceData, 'current-service-card');
+            renderMonitoringCardList(dependentServicesData, 'dependent-services-cards');
+            renderMonitoringCardList(dependingServicesData, 'depending-services-cards');
+        }
+
+        function renderMonitoringCard(service, containerId) {
+            var container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            var card = document.createElement('div');
+            card.className = 'card highlight';
+
+            var header = document.createElement('div');
+            header.className = 'card-header';
+            if (service.error_rate > 0.15) {
+                header.className += ' bg-danger text-white';
+            } else if (service.error_rate > 0.05) {
+                header.className += ' bg-warning text-dark';
+            } else {
+                header.className += ' bg-success text-white';
+            }
+
+            header.textContent = service.service;
+            card.appendChild(header);
+
+            var body = document.createElement('div');
+            body.className = 'card-body';
+            body.innerHTML = '<p>请求次数: ' + service.request_count + '</p>' +
+                '<p>平均响应时间: ' + service.avg_response_time + ' ms</p>' +
+                '<p>错误率: ' + service.error_rate + '</p>' +
+                '<p>IP地址: ' + service.ip_address + '</p>' +
+                '<p>数据库:';
+            
+            service.databases.forEach(function(db) {
+                body.innerHTML += '<br>- ' + db.name + ': ' + db.host + ':' + db.port;
+            });
+
+            body.innerHTML += '</p>' +
+                '<p>Redis: ' + service.redis.name + ': ' + service.redis.host + ':' + service.redis.port + '</p>';
+            card.appendChild(body);
+
+            container.appendChild(card);
+        }
+
+        function renderMonitoringCardList(services, containerId) {
+            var container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            services.forEach(function (service) {
+                var card = document.createElement('div');
+                card.className = 'card';
+
+                var header = document.createElement('div');
+                header.className = 'card-header';
+                if (service.error_rate > 0.15) {
+                    header.className += ' bg-danger text-white';
+                } else if (service.error_rate > 0.05) {
+                    header.className += ' bg-warning text-dark';
+                } else {
+                    header.className += ' bg-success text-white';
+                }
+
+                header.textContent = service.service;
+                card.appendChild(header);
+
+                var body = document.createElement('div');
+                body.className = 'card-body';
+                body.innerHTML = '<p>请求次数: ' + service.request_count + '</p>' +
+                    '<p>平均响应时间: ' + service.avg_response_time + ' ms</p>' +
+                    '<p>错误率: ' + service.error_rate + '</p>' +
+                    '<p>IP地址: ' + service.ip_address + '</p>' +
+                    '<p>数据库:';
+
+                service.databases.forEach(function(db) {
+                    body.innerHTML += '<br>- ' + db.name + ': ' + db.host + ':' + db.port;
+                });
+
+                body.innerHTML += '</p>' +
+                    '<p>Redis: ' + service.redis.name + ': ' + service.redis.host + ':' + service.redis.port + '</p>';
+                card.appendChild(body);
+
+                container.appendChild(card);
+            });
+        }
+
+        function renderTopology(highlightedService) {
+            var myChart = echarts.init(document.getElementById('topology'));
+
+            var option = {
+                tooltip: {
+                    formatter: function (params) {
+                        if (params.dataType === 'edge') {
+                            return params.data.call_count + ' calls<br/>Avg response time: ' + params.data.avg_response_time + ' ms';
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'force',
+                        symbolSize: 50,
+                        roam: true,
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: '{b}'
+                        },
+                        edgeSymbol: ['circle', 'arrow'],
+                        edgeSymbolSize: [4, 10],
+                        edgeLabel: {
+                            fontSize: 12
+                        },
+                        data: topologyData.nodes.map(function (node) {
+                            return {
+                                name: node.name,
+                                id: node.id,
+                                itemStyle: node.id === highlightedService ? { color: '#ff0000' } : {}
+                            };
+                        }),
+                        links: topologyData.edges.map(function (edge) {
+                            return {
+                                source: edge.source,
+                                target: edge.target,
+                                call_count: edge.call_count,
+                                avg_response_time: edge.avg_response_time
+                            };
+                        }),
+                        lineStyle: {
+                            color: 'source',
+                            curveness: 0
+                        },
+                        force: {
+                            repulsion: 1000,
+                            edgeLength: [50, 200]
+                        }
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        }
+
+        function renderTraceTable() {
+            var tbody = document.getElementById('trace-table-body');
+            tbody.innerHTML = '';
+
+            traceData.forEach(function (trace) {
+                var row = document.createElement('tr');
+                row.innerHTML = '<td>' + trace.id + '</td>' +
+                    '<td>' + trace.request_id + '</td>' +
+                    '<td>' + trace.start_time + '</td>' +
+                    '<td>' + trace.end_time + '</td>' +
+                    '<td>' + trace.duration + '</td>' +
+                    '<td>' + trace.ip_address + '</td>' +
+                    '<td>' + trace.service + '</td>';
+
+                row.addEventListener('click', function () {
+                    var childRows = traceData.filter(function (item) {
+                        return item.id === trace.id;
+                    }).map(function (item) {
+                        return '<tr class="child-row"><td colspan="7">服务: ' + item.service + ', IP地址: ' + item.ip_address + ', 开始时间: ' + item.start_time + ', 结束时间: ' + item.end_time + ', 时长: ' + item.duration + ' ms</td></tr>';
+                    }).join('');
+
+                    if (this.classList.contains('expanded')) {
+                        this.classList.remove('expanded');
+                        var nextRow = this.nextElementSibling;
+                        while (nextRow && nextRow.classList.contains('child-row')) {
+                            var temp = nextRow.nextElementSibling;
+                            nextRow.remove();
+                            nextRow = temp;
+                        }
+                    } else {
+                        this.classList.add('expanded');
+                        this.insertAdjacentHTML('afterend', childRows);
+                    }
+                });
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Initial rendering
+        showServicePanel('订单服务');
+        renderTopology('orderservice');
+        renderTraceTable();
+    </script>
+</body>
+</html>
