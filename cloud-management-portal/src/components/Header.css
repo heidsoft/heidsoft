@@ -1,0 +1,28 @@
+/* src/components/Header.css */
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #1b5e20;
+}

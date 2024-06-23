@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全工具与命令</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .tool-section {
+            margin-bottom: 40px;
+        }
+        .tool-section h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        .tool-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tool-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>常用安全工具与命令</h1>
+    </header>
+    <div class="container">
+        <section class="tool-section">
+            <h2>安全评估工具</h2>
+            <ul class="tool-list">
+                <li><strong>Nmap:</strong> 网络扫描和服务发现<br><code>nmap -sV -O target_ip</code></li>
+                <li><strong>OpenVAS:</strong> 漏洞评估系统<br>使用 OpenVAS Web 界面进行扫描</li>
+                <li><strong>Metasploit:</strong> 渗透测试框架<br><code>msfconsole</code></li>
+                <li><strong>Burp Suite:</strong> Web 应用程序安全测试<br>配置代理进行拦截和修改HTTP请求</li>
+            </ul>
+        </section>
+        <section class="tool-section">
+            <h2>安全管理与监控工具</h2>
+            <ul class="tool-list">
+                <li><strong>Wireshark:</strong> 网络协议分析<br>监视和分析网络流量</li>
+                <li><strong>Snort:</strong> 网络入侵检测系统<br>运行 Snort 以侦测网络攻击</li>
+                <li><strong>OSSEC:</strong> 安全事件管理系统<br>配置和管理安全监控和警报</li>
+                <li><strong>Fail2ban:</strong> 防护服务<br>设置规则来防范 SSH 和 HTTP 攻击</li>
+            </ul>
+        </section>
+        <section class="tool-section">
+            <h2>常用安全命令</h2>
+            <ul class="tool-list">
+                <li><strong>查看系统日志:</strong> <code>tail -f /var/log/syslog</code></li>
+                <li><strong>检查端口:</strong> <code>netstat -tulpn</code></li>
+                <li><strong>查看网络连接:</strong> <code>ss -tulwn</code></li>
+                <li><strong>防火墙配置:</strong> <code>iptables</code></li>
+                <li><strong>审计文件系统:</strong> <code>auditd</code></li>
+            </ul>
+        </section>
+    </div>
+    <footer style="text-align: center; background-color: #333; color: white; padding: 10px 0;">
+        &copy; 2024 安全工具与命令. 版权所有.
+    </footer>
+</body>
+</html>
