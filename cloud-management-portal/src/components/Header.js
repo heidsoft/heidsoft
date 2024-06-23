@@ -1,19 +1,22 @@
 // src/components/Header.js
+
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     return (
         <header>
             <nav>
-                <a href="/aliyun">阿里云</a>
-                <a href="/tencentcloud">腾讯云</a>
-                <a href="/huaweicloud">华为云</a>
-                <a href="/aws">AWS</a>
-                <a href="/news">新闻</a>
-                <a href="/new-services">新服务</a>
-                <a href="/blog">博客</a>
-                <a href="/status">服务状态</a>
+                <Link to="/all-products">全部产品</Link>
+                <Link to="/aliyun">阿里云</Link>
+                <Link to="/tencentcloud">腾讯云</Link>
+                <Link to="/huaweicloud">华为云</Link>
+                <Link to="/aws">AWS</Link>
+                <Link to="/news">新闻</Link>
+                <Link to="/new-services">新服务</Link>
+                <Link to="/blog">博客</Link>
+                <Link to="/status">服务状态</Link>
             </nav>
         </header>
     );

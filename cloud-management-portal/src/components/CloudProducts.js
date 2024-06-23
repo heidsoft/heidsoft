@@ -1,19 +1,15 @@
 // src/components/CloudProducts.js
+
 import React from 'react';
 
-const CloudProducts = ({ provider, products }) => {
-    return (
-        <div className="cloud-products">
-            <h2>{provider}产品列表</h2>
-            <ul>
-                {products.map(product => (
-                    <li key={product.id}>
-                        <strong>{product.name}</strong>: {product.description}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+const CloudProducts = ({ cloud }) => {
+  return (
+    <div>
+      <h1>{cloud} 产品</h1>
+      <p>这里展示 {cloud} 的所有产品信息。</p>
+      {/* 具体产品信息 */}
+    </div>
+  );
 }
 
 export default CloudProducts;
