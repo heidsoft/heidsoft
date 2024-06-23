@@ -1,0 +1,76 @@
+/* src/components/Auth.css */
+
+/* 设置整个页面的背景颜色和字体 */
+body {
+    background-color: #f4f6f8; /* 页面背景颜色为浅灰色 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 设置字体为无衬线字体 */
+    color: #333; /* 字体颜色为深灰色 */
+    margin: 0; /* 去掉页面的默认外边距 */
+    padding: 0; /* 去掉页面的默认内边距 */
+}
+
+/* 定义表单容器的样式 */
+.auth-form-container {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: center; /* 水平居中对齐 */
+    align-items: center; /* 垂直居中对齐 */
+    height: 100vh; /* 高度占满整个视口 */
+    background-image: url('https://www.transparenttextures.com/patterns/green-dust-and-scratches.png'); /* 设置背景图片 */
+}
+
+/* 设置表单的样式 */
+.auth-form {
+    background-color: #fff; /* 表单背景颜色为白色 */
+    padding: 20px; /* 表单内边距为 20px */
+    border-radius: 10px; /* 设置圆角边框，半径为 10px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    width: 100%; /* 表单宽度为 100% */
+    max-width: 400px; /* 表单最大宽度为 400px */
+}
+
+/* 设置表单标题的样式 */
+.auth-form h2 {
+    margin-bottom: 20px; /* 标题下边距为 20px */
+    color: #2e7d32; /* 标题颜色为深绿色 */
+    text-align: center; /* 标题居中对齐 */
+}
+
+/* 设置表单标签的样式 */
+.auth-form label {
+    display: block; /* 标签为块级元素 */
+    margin-bottom: 10px; /* 标签下边距为 10px */
+    font-weight: bold; /* 标签字体加粗 */
+}
+
+/* 设置表单输入框的样式 */
+.auth-form input {
+    width: 100%; /* 输入框宽度为 100% */
+    padding: 10px; /* 输入框内边距为 10px */
+    border: 1px solid #ccc; /* 输入框边框为 1px 灰色实线 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    margin-bottom: 20px; /* 输入框下边距为 20px */
+    background-color: #fff; /* 输入框背景颜色为白色 */
+}
+
+/* 设置表单按钮的样式 */
+.auth-form button {
+    width: 100%; /* 按钮宽度为 100% */
+    padding: 10px 20px; /* 按钮内边距为：上下 10px，左右 20px */
+    border: none; /* 按钮无边框 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    background-color: #2e7d32; /* 按钮背景颜色为深绿色 */
+    color: white; /* 按钮字体颜色为白色 */
+    font-size: 16px; /* 按钮字体大小为 16px */
+    cursor: pointer; /* 鼠标悬停时显示为手形 */
+}
+
+/* 按钮悬停状态下的样式 */
+.auth-form button:hover {
+    background-color: #1b5e20; /* 按钮悬停时背景颜色为更深的绿色 */
+}
+
+/* 禁用按钮的样式 */
+.auth-form button:disabled {
+    background-color: #cccccc; /* 禁用按钮的背景颜色为灰色 */
+    cursor: not-allowed; /* 鼠标悬停时显示为不可用状态 */
+}

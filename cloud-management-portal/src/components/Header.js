@@ -13,6 +13,7 @@ const Header = () => {
                 <Link to="/tencentcloud">腾讯云</Link>
                 <Link to="/huaweicloud">华为云</Link>
                 <Link to="/aws">AWS</Link>
+                <Link to="/sec">安全</Link>
                 <Link to="/news">新闻</Link>
                 <Link to="/new-services">新服务</Link>
                 <Link to="/blog">博客</Link>

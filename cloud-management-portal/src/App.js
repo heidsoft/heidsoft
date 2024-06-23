@@ -1,19 +1,31 @@
 // src/App.js
 
-import React from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
+import Cart from './components/Cart';
 import AllProducts from './components/AllProducts';
 import CloudProducts from './components/CloudProducts';
+import Login from './components/Login';
+import Register from './components/Register';
+import Checkout from './components/Checkout';
+import './App.css';
 
 function App() {
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (product) => {
+        setCart([...cart, product]);
+        console.log('Product added to cart:', product);
+    };
+
   return (
     <Router>
       <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/all-products" element={<AllProducts />} />
+          <Route path="/all-products" element={<AllProducts addToCart={addToCart}/>} />
           <Route path="/aliyun" element={<CloudProducts cloud="阿里云" />} />
           <Route path="/tencentcloud" element={<CloudProducts cloud="腾讯云" />} />
           <Route path="/huaweicloud" element={<CloudProducts cloud="华为云" />} />
@@ -22,6 +34,10 @@ function App() {
           <Route path="/new-services" element={<NewServices />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/status" element={<Status />} />
+          <Route path="/cart" element={<Cart cart={cart} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>
     </Router>

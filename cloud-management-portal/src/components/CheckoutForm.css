@@ -1,0 +1,39 @@
+/* src/components/CheckoutForm.css */
+
+/* 设置表单样式，居中显示，宽度限制为 400px */
+form {
+    display: flex; /* 使表单内的元素按列排列 */
+    flex-direction: column; /* 纵向排列表单元素 */
+    max-width: 400px; /* 最大宽度为 400px */
+    margin: 0 auto; /* 居中对齐 */
+    padding: 20px; /* 表单内部填充 20px */
+    border: 1px solid #ccc; /* 边框为 1px 的灰色实线 */
+    border-radius: 10px; /* 圆角边框，半径为 10px */
+    background-color: #f9f9f9; /* 表单背景颜色为浅灰色 */
+}
+
+/* 设置卡片输入框的样式 */
+.CardElement {
+    padding: 10px; /* 内边距 10px */
+    border: 1px solid #ccc; /* 边框为 1px 的灰色实线 */
+    border-radius: 5px; /* 圆角边框，半径为 5px */
+    margin-bottom: 20px; /* 下外边距 20px */
+    background-color: #fff; /* 背景颜色为白色 */
+}
+
+/* 设置提交按钮的样式 */
+button {
+    padding: 10px 20px; /* 内边距：上下 10px，左右 20px */
+    border: none; /* 无边框 */
+    border-radius: 5px; /* 圆角边框，半径为 5px */
+    background-color: #007bff; /* 背景颜色为蓝色 */
+    color: white; /* 字体颜色为白色 */
+    font-size: 16px; /* 字体大小为 16px */
+    cursor: pointer; /* 鼠标指针为手形 */
+}
+
+/* 禁用按钮的样式 */
+button:disabled {
+    background-color: #cccccc; /* 背景颜色为灰色 */
+    cursor: not-allowed; /* 鼠标指针为不可用状态 */
+}

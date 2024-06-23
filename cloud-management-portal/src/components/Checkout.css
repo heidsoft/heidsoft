@@ -1,0 +1,94 @@
+/* src/components/Checkout.css */
+
+/* 设置整个页面的背景颜色和字体 */
+body {
+    background-color: #f4f6f8; /* 页面背景颜色为浅灰色 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 设置字体为无衬线字体 */
+    color: #333; /* 字体颜色为深灰色 */
+    margin: 0; /* 去掉页面的默认外边距 */
+    padding: 0; /* 去掉页面的默认内边距 */
+}
+
+/* 定义结算页面容器的样式 */
+.checkout-container {
+    width: 90%; /* 容器宽度为 90% */
+    margin: 0 auto; /* 容器水平居中 */
+    padding: 20px 0; /* 容器上下内边距为 20px */
+}
+
+/* 设置结算页面标题的样式 */
+.checkout-title {
+    text-align: center; /* 标题居中对齐 */
+    color: #2e7d32; /* 标题颜色为深绿色 */
+    font-size: 28px; /* 标题字体大小为 28px */
+    margin-bottom: 20px; /* 标题下边距为 20px */
+}
+
+/* 定义表单容器的样式 */
+.form-container {
+    background-color: #fff; /* 容器背景颜色为白色 */
+    padding: 20px; /* 容器内边距为 20px */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    max-width: 600px; /* 容器最大宽度为 600px */
+    margin: 0 auto; /* 容器水平居中 */
+}
+
+/* 定义表单标签的样式 */
+.form-container label {
+    display: block; /* 标签为块级元素 */
+    margin-bottom: 10px; /* 标签下边距为 10px */
+    font-weight: bold; /* 标签字体加粗 */
+}
+
+/* 定义表单输入框的样式 */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"],
+.form-container input[type="number"] {
+    width: calc(100% - 22px); /* 输入框宽度为 100% 减去内边距和边框的总和 */
+    padding: 10px; /* 输入框内边距为 10px */
+    border: 1px solid #ccc; /* 输入框边框为 1px 灰色实线 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    margin-bottom: 20px; /* 输入框下边距为 20px */
+    font-size: 16px; /* 输入框字体大小为 16px */
+}
+
+/* 定义表单选择框的样式 */
+.form-container select {
+    width: calc(100% - 22px); /* 选择框宽度为 100% 减去内边距和边框的总和 */
+    padding: 10px; /* 选择框内边距为 10px */
+    border: 1px solid #ccc; /* 选择框边框为 1px 灰色实线 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    margin-bottom: 20px; /* 选择框下边距为 20px */
+    font-size: 16px; /* 选择框字体大小为 16px */
+}
+
+/* 定义表单文本区域的样式 */
+.form-container textarea {
+    width: calc(100% - 22px); /* 文本区域宽度为 100% 减去内边距和边框的总和 */
+    padding: 10px; /* 文本区域内边距为 10px */
+    border: 1px solid #ccc; /* 文本区域边框为 1px 灰色实线 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    margin-bottom: 20px; /* 文本区域下边距为 20px */
+    font-size: 16px; /* 文本区域字体大小为 16px */
+    height: 100px; /* 文本区域高度为 100px */
+}
+
+/* 定义表单提交按钮的样式 */
+.submit-button {
+    width: 100%; /* 按钮宽度为 100% */
+    padding: 15px 20px; /* 按钮内边距为：上下 15px，左右 20px */
+    border: none; /* 按钮无边框 */
+    border-radius: 5px; /* 设置圆角边框，半径为 5px */
+    background-color: #2e7d32; /* 按钮背景颜色为深绿色 */
+    color: white; /* 按钮字体颜色为白色 */
+    font-size: 18px; /* 按钮字体大小为 18px */
+    cursor: pointer; /* 鼠标悬停时显示为手形 */
+    text-align: center; /* 按钮文字居中对齐 */
+    margin-top: 20px; /* 按钮上边距为 20px */
+}
+
+.submit-button:hover {
+    background-color: #1b5e20; /* 按钮悬停时背景颜色为更深的绿色 */
+}
