@@ -1,6 +1,15 @@
- [![My Skills](https://skillicons.dev/icons?i=aws,bash,c,cpp,elasticsearch,git,go,js,jenkins,kubernetes,linux,maven,mysql,nginx,java,kotlin,nodejs&theme=light)](https://skillicons.dev)
+# Welcome to My GitHub Profile 👋
 
-[![heidsoft's GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft)](https://github.com/heidsoft/github-readme-stats)
+Hello! I'm Heidsoft, a passionate software developer with experience in cloud computing, containerization, and backend development. Below are some of my key skills and stats.
+
+## 🚀 My Skills
+[![My Skills](https://skillicons.dev/icons?i=aws,bash,c,cpp,elasticsearch,git,go,js,jenkins,kubernetes,linux,maven,mysql,nginx,java,kotlin,nodejs&theme=light)](https://skillicons.dev)
+
+## 📊 GitHub Stats
+[![heidsoft's GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=default)](https://github.com/heidsoft/github-readme-stats)
+
+Thanks for stopping by! Feel free to explore my repositories and contribute to any projects that interest you. 😊
+
 
 
 # 机器学习
