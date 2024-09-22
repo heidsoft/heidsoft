@@ -10,6 +10,13 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ![GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=light&count_private=true)
 
+
+![Visitor Badge](https://img.shields.io/badge/Visitors-Count-blue)
+
+## 💻 Fun Fact
+
+![Typing SVG](https://readme-typing-svg.herokuapp.com?lines=Hello+World!;I+love+coding!)
+
 ## 📚 My Learning Resources
 
 ### 机器学习资源
@@ -80,9 +87,4 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 - **服务治理平台**
 
 
-![Visitor Badge](https://img.shields.io/badge/Visitors-Count-blue)
-
-## 💻 Fun Fact
-
-![Typing SVG](https://readme-typing-svg.herokuapp.com?lines=Hello+World!;I+love+coding!)
 
