@@ -80,8 +80,9 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 - **服务治理平台**
 
 
-![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.heidsoft)
+[![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.visitor-badge.issue.1)
 
 ## 💻 Fun Fact
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com?lines=Passionate+about+Cloud+%26+AI;Loves+Open+Source+%26+Collaboration)
+![Typing SVG](https://readme-typing-svg.herokuapp.com?lines=Hello+World!;I+love+coding!)
+
