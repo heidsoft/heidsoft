@@ -4,7 +4,7 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ## 🛠️ My Skills
 
-[![My Skills](https://skillicons.dev/icons?i=docker,aws,git,jenkins,kubernetes,elasticsearch,linux,maven,nginx,mysql,redis,java,bash,c,cpp,go,python,js,githubactions&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=docker,aws,git,jenkins,kubernetes,elasticsearch,linux,maven,nginx,mysql,redis,java,bash,c,cpp,go,python,js,spring,rust,stackoverflow,sublime,sklearn,terraform,ts,ubuntu,vim,vscode,redhat,react,pytorch,npm,mongodb,html,babel,css,django,eclipse,fastapi,express,githubactions&theme=light)](https://skillicons.dev)
 
 ## 📊 GitHub Stats
 
