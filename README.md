@@ -22,7 +22,8 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ![Visitors Count](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.heidsoft)
 
-![Contribution Graph](https://activity-graph.herokuapp.com/graph?username=heidsoft&theme=react-dark)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=heidsoft&count_private=true&show_icons=true&theme=radical)
+
 
 
 ## 💻 Fun Fact
