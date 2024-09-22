@@ -8,7 +8,7 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ## 📊 GitHub Stats
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=yourusername&show_icons=true&theme=light&count_private=true)
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=light&count_private=true)
 
 ## 📚 My Learning Resources
 
