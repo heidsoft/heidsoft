@@ -39,19 +39,19 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
   - [Locally Weighted & Logistic Regression | Stanford CS229](https://www.youtube.com/watch?v=het9HFqo1TQ&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=3)
   - [Harvard CS50’s Artificial Intelligence with Python](https://www.youtube.com/watch?v=5NgNicANyqM)
 
-### 工作流及中间件
+#### 工作流及中间件
 
 - [工作流设计](https://temporal.io/blog/workflow-engine-principles)
 - [BPMN 工作流示例](https://demo.bpmn.io/)
 - [Camunda BPM 开源平台](https://github.com/camunda/camunda-bpm-platform/tree/master)
 
-### 容器平台
+#### 容器平台
 
 - **阿里云 ACK**
 - **红帽 Openshift(OCP)**
 - **亚马逊 EKS**
 
-### 领域趋势
+#### 领域趋势
 
 - **AIGC**：利用 AI 生成内容
 - **微服务**、**K8S**、**JVM**、**DDD**
@@ -59,19 +59,19 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 - **低代码**、**区块链**、**Web3**、**元宇宙**
 - **数字孪生**、**数字化**
 
-### 基础组件
+#### 基础组件
 
 - **RocketMQ**：可深入
 - **ELK**、**Netty**、**Ceph**（暂缓）
 - **Kafka**、**Clickhouse**：实时日志存储
 - **Redis**：中间件研究
 
-### 系统 & DevOps
+#### 系统 & DevOps
 
 - **eBPF**
 - **内核**研究
 
-### 产品架构
+#### 产品架构
 
 - **多云管理平台**
   - [数据库多云 DMS 系统](https://mp.weixin.qq.com/s?__biz=MzU0ODg0OTIyNw==&mid=2247501352&idx=1&sn=ad2920245f907c558904db391777efb4&chksm=fbba550ccccddc1af2dab4e4f04572837d90adadf4a103c72937a4c62992cc0df6d621cdd0dd&token=1919588014&lang=zh_CN#rd)
