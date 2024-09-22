@@ -4,7 +4,7 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ## 🛠️ My Skills
 
-[![My Skills](https://skillicons.dev/icons?i=aws,python,docker,kubernetes,linux,gcp,mysql,redis,java,githubactions&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=docker,aws,git,jenkins,kubernetes,elasticsearch,linux,maven,nginx,mysql,redis,java,bash,c,cpp,go,python,js,githubactions&theme=light)](https://skillicons.dev)
 
 ## 📊 GitHub Stats
 
@@ -80,7 +80,7 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 - **服务治理平台**
 
 
-![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.visitor-badge.issue.1)
+![Visitor Badge](https://img.shields.io/badge/Visitors-Count-blue)
 
 ## 💻 Fun Fact
 
