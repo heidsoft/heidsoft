@@ -14,7 +14,7 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 ### 关注我的微信公众号：
 [![WeChat](https://img.shields.io/badge/WeChat-%E4%BA%91%E4%B8%8E%E6%95%B0%E5%AD%97%E5%8C%96-green?style=for-the-badge&logo=wechat)](https://mp.weixin.qq.com/s?__biz=MzAxMTQwODY1MQ==&mid=2651572164&idx=1&sn=d2317091a7a95f91887264e02aaa7170&chksm=80bee3a0b7c96ab659db4373676361a5a4694545bf9d29590882ecae7b607185d6f9259da802&token=128556342&lang=zh_CN#rd)
 
-![Visitor Badge](https://img.shields.io/badge/Visitors-Count-blue)
+![Visitors Count](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.heidsoft)
 
 ## 💻 Fun Fact
 
