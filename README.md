@@ -10,6 +10,10 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ![GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=light&count_private=true)
 
+## 云与数字化
+关注我的微信公众号：
+[![WeChat](https://img.shields.io/badge/WeChat-%E4%BA%91%E4%B8%8E%E6%95%B0%E5%AD%97%E5%8C%96-green)](https://mp.weixin.qq.com/some_wechat_link)
+
 
 ![Visitor Badge](https://img.shields.io/badge/Visitors-Count-blue)
 
