@@ -20,7 +20,8 @@ I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. 
 
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=radical)
 
-![Visitors Count](https://visitor-badge.laobi.icu/badge?page_id=heidsoft.heidsoft)
+![Visitors Count](https://img.shields.io/badge/Visitors-Count-blue?style=flat&logo=github)
+
 
 
 ## 💻 Fun Fact
