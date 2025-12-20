@@ -43,7 +43,14 @@
     <img src="assets/top-langs.svg" alt="Top languages" />
 </p>
 
-> 如果本地图片不存在，GitHub 会显示外部链接。可在本机运行 `scripts/fetch-gh-stats.sh` 下载最新 SVG 到 `assets/`（见下文）。
+> 如果本地图片不存在（或无法加载），下面提供稳定的徽章作为回退：
+
+<p align="center">
+    <a href="https://github.com/heidsoft"><img src="https://img.shields.io/github/followers/heidsoft?label=Followers&style=social" alt="followers" /></a>
+    <a href="https://github.com/heidsoft"><img src="https://img.shields.io/github/stars/heidsoft?label=Stars&style=social" alt="stars" /></a>
+</p>
+
+> 若要在本仓库中显示完整 SVG，请在本机运行 `scripts/fetch-gh-stats.sh`（需可访问外网），然后提交 `assets/gh-stats.svg` 与 `assets/top-langs.svg` 到仓库。
 
 ---
 
