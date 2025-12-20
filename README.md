@@ -1,94 +1,62 @@
-## 👋 Hello, I'm [heidsoft]!
 
-I'm passionate about **cloud computing**, **machine learning**, and **DevOps**. I love working with open-source projects and sharing knowledge with the community. Welcome to my GitHub profile! Feel free to explore my repositories, and don't hesitate to reach out if you'd like to collaborate.
+## 👋 你好，我是 heidsoft
 
-## 🛠️ My Skills
+热衷于云计算、机器学习与 DevOps，喜欢参与开源并分享实践经验。这里展示我的项目、技能与文章，欢迎交流与协作。
 
-[![My Skills](https://skillicons.dev/icons?i=docker,aws,git,jenkins,kubernetes,elasticsearch,linux,maven,nginx,mysql,redis,java,bash,c,cpp,go,python,js,spring,rust,stackoverflow,sublime,sklearn,terraform,ts,ubuntu,vim,vscode,redhat,react,pytorch,npm,mongodb,html,babel,css,django,eclipse,fastapi,express,githubactions&theme=light)](https://skillicons.dev)
+---
 
-## 📊 GitHub Stats
+**🔭 目前专注：** 多云管理平台、Kubernetes、可观测性、AIGC 应用
+
+**🛠️ 技能概览：**
+
+[![技术图标](https://skillicons.dev/icons?i=docker,kubernetes,aws,terraform,python,go,java,react,nginx,mysql,redis,git&theme=light)](https://skillicons.dev)
+
+---
+
+**📦 重点项目**
+
+- [cloud-management-portal](https://github.com/heidsoft/cloud-management-portal) — 多云管理平台示例（React 前端 + 云服务整合）
+- 更多项目请查看我的仓库并置顶你感兴趣的仓目。
+
+---
+
+**📊 GitHub 统计**
 
 ![Heidsoft's GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=radical)
 
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=radical)
 
-## 云与数字化
-### 关注我的微信公众号：
-[![WeChat](https://img.shields.io/badge/WeChat-%E4%BA%91%E4%B8%8E%E6%95%B0%E5%AD%97%E5%8C%96-green?style=for-the-badge&logo=wechat)](https://mp.weixin.qq.com/s?__biz=MzAxMTQwODY1MQ==&mid=2651572164&idx=1&sn=d2317091a7a95f91887264e02aaa7170&chksm=80bee3a0b7c96ab659db4373676361a5a4694545bf9d29590882ecae7b607185d6f9259da802&token=128556342&lang=zh_CN#rd)
+---
 
+**📫 联系方式**
 
-## 💻 Fun Fact
+- 关注我的微信公众号： [云与数字化](https://mp.weixin.qq.com/s?__biz=MzAxMTQwODY1MQ==&mid=2651572164&idx=1&sn=d2317091a7a95f91887264e02aaa7170)  
+- 想合作或交流，可在仓库中发 Issue 或者通过微信联系。
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com?lines=Hello+World!;I+love+coding!)
+---
 
-## 📚 My Learning Resources
+<details>
+<summary>📚 学习资源与笔记（点击展开）</summary>
 
-### 机器学习资源
+### 机器学习与时序
 
 - [时间序列预测（BigQuery ML）](https://anttihavanko.medium.com/time-series-forecasting-for-prometheus-grafana-with-bigquery-ml-2154f7cd48b5)
-- [Conda 环境管理指南](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
-- [ARIMA 模型讲解](https://otexts.com/fpp2/arima.html)
-- [Jupyter 安装指南](https://jupyter.org/install)
-- [YouTube: Time-Series Forecasting](https://www.youtube.com/watch?v=exKkgQ1ovAk)
-- [YouTube: Machine Learning 讲解](https://www.youtube.com/watch?v=7FBak9EShbQ)
+- [ARIMA 教程](https://otexts.com/fpp2/arima.html)
 
-### 资源索引
+### 前端与 React
 
-- **React**
-  - [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
-  - [用户登录界面开发](https://www.youtube.com/watch?v=PKwu15ldZ7k)
-  - [React Router 教程](https://youtu.be/5s57C7leXc4?list=PL4cUxeGkcC9iVKmtNuCeIswnQ97in2GGf)
-  
-- **数据结构**
-  - [B-trees in 4 minutes](https://www.youtube.com/watch?v=FgWbADOG44s)
-  - [Algorithms behind Modern Storage Systems](https://www.youtube.com/watch?v=wxcCHvQeZ-U)
-  - [Bloom Filters in LSM Trees](https://www.youtube.com/watch?v=em2j7sLhoyI)
+- [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
 
-- **机器学习视频**
-  - [Time-Series databases](https://youtu.be/QVa8k36w0Ig)
-  - [Transformer 论文逐段精读](https://www.youtube.com/watch?v=nzqlFIcCSWQ)
-  - [Locally Weighted & Logistic Regression | Stanford CS229](https://www.youtube.com/watch?v=het9HFqo1TQ&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=3)
-  - [Harvard CS50’s Artificial Intelligence with Python](https://www.youtube.com/watch?v=5NgNicANyqM)
+### 工作流与中间件
 
-#### 工作流及中间件
+- [Temporal 工作流原理](https://temporal.io/blog/workflow-engine-principles)
+- [Camunda 示例](https://github.com/camunda/camunda-bpm-platform/tree/master)
 
-- [工作流设计](https://temporal.io/blog/workflow-engine-principles)
-- [BPMN 工作流示例](https://demo.bpmn.io/)
-- [Camunda BPM 开源平台](https://github.com/camunda/camunda-bpm-platform/tree/master)
+</details>
 
-#### 容器平台
+---
 
-- **阿里云 ACK**
-- **红帽 Openshift(OCP)**
-- **亚马逊 EKS**
+感谢访问，想了解某个项目或我分享的实践，请直接打开对应仓库或发起讨论。  
 
-#### 领域趋势
-
-- **AIGC**：利用 AI 生成内容
-- **微服务**、**K8S**、**JVM**、**DDD**
-- **Serverless**、**ServiceMesh**、**可观测性**、**DevSecOps**
-- **低代码**、**区块链**、**Web3**、**元宇宙**
-- **数字孪生**、**数字化**
-
-#### 基础组件
-
-- **RocketMQ**：可深入
-- **ELK**、**Netty**、**Ceph**（暂缓）
-- **Kafka**、**Clickhouse**：实时日志存储
-- **Redis**：中间件研究
-
-#### 系统 & DevOps
-
-- **eBPF**
-- **内核**研究
-
-#### 产品架构
-
-- **多云管理平台**
-  - [数据库多云 DMS 系统](https://mp.weixin.qq.com/s?__biz=MzU0ODg0OTIyNw==&mid=2247501352&idx=1&sn=ad2920245f907c558904db391777efb4&chksm=fbba550ccccddc1af2dab4e4f04572837d90adadf4a103c72937a4c62992cc0df6d621cdd0dd&token=1919588014&lang=zh_CN#rd)
-
-- **应用元数据平台**
-- **服务治理平台**
-
-
-
+<!-- Footer: 保留原有动态效果或替换为个人口号 -->
+![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira%20Code&size=20&pause=1000&color=F70089&width=600&lines=欢迎来到我的个人主页;欢迎交流合作)
