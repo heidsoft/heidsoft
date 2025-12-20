@@ -1,37 +1,58 @@
+<div align="center">
+ <h1>👋 你好，我是 <strong>heidsoft</strong></h1>
+ <p style="font-size:16px;">云原生、AIOps 与可观测性爱好者 • 分享开源与工程实践</p>
 
-## 👋 你好，我是 heidsoft
+ <p>
+  <a href="https://github.com/heidsoft"><img src="https://img.shields.io/badge/GitHub-@heidsoft-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
+  <a href="https://github.com/heidsoft?tab=repositories"><img src="https://img.shields.io/badge/Repositories-查看-0ea5ff?style=for-the-badge" alt="Repos"/></a>
+  <a href="https://img.shields.io/github/followers/heidsoft?style=social"><img src="https://img.shields.io/github/followers/heidsoft?style=social" alt="Followers"/></a>
+ </p>
 
-热衷于云计算、机器学习与 DevOps，喜欢参与开源并分享实践经验。这里展示我的项目、技能与文章，欢迎交流与协作。
-
----
-
-**🔭 目前专注：** 多云管理平台、Kubernetes、可观测性、AIGC 应用
-
-**🛠️ 技能概览：**
-
-[![技术图标](https://skillicons.dev/icons?i=docker,kubernetes,aws,terraform,python,go,java,react,nginx,mysql,redis,git&theme=light)](https://skillicons.dev)
-
----
-
-**📦 重点项目**
-
-- [cloud-management-portal](https://github.com/heidsoft/cloud-management-portal) — 多云管理平台示例（React 前端 + 云服务整合）
-- 更多项目请查看我的仓库并置顶你感兴趣的仓目。
+ <p>
+  <img src="https://skillicons.dev/icons?i=docker,kubernetes,aws,terraform,python,go,java,react,nginx,mysql,redis,git&theme=light" alt="skills" />
+ </p>
+</div>
 
 ---
 
-**📊 GitHub 统计**
+## 🌟 重点项目（挑选）
 
+<table>
+ <tr>
+  <td width="33%" valign="top">
+   <h3><a href="https://github.com/heidsoft/itsm">itsm</a></h3>
+   <p>企业级 ITSM 示例：事件/变更/问题管理与运维自动化。</p>
+  </td>
+  <td width="33%" valign="top">
+   <h3><a href="https://github.com/heidsoft/aiops">aiops</a></h3>
+   <p>AIOps 平台示例：告警聚合、根因定位与自动化处置。</p>
+  </td>
+  <td width="33%" valign="top">
+   <h3><a href="https://github.com/heidsoft/heidsoft-libc">heidsoft-libc</a></h3>
+   <p>轻量 C 库集合，面向内核与嵌入式开发。</p>
+  </td>
+ </tr>
+</table>
+
+---
+
+## 📊 GitHub 统计
+
+<p>
 ![Heidsoft's GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=radical)
-
 ![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=radical)
+</p>
 
 ---
 
-**📫 联系方式**
+## 📫 联系方式
 
-- 关注我的微信公众号： [云与数字化](https://mp.weixin.qq.com/s?__biz=MzAxMTQwODY1MQ==&mid=2651572164&idx=1&sn=d2317091a7a95f91887264e02aaa7170)  
-- 想合作或交流，可在仓库中发 Issue 或者通过微信联系。
+- 关注我的微信公众号：**云与数字化**  
+- 想合作或交流，请在仓库发 Issue 或通过微信联系。
+
+<p align="center">
+ <img src="weixin.jpg" alt="微信二维码" width="160" />
+</p>
 
 ---
 
@@ -56,7 +77,6 @@
 
 ---
 
-感谢访问，想了解某个项目或我分享的实践，请直接打开对应仓库或发起讨论。  
+感谢访问，想了解某个项目或我分享的实践，请直接打开对应仓库或发起讨论。
 
-<!-- Footer: 保留原有动态效果或替换为个人口号 -->
 ![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira%20Code&size=20&pause=1000&color=F70089&width=600&lines=欢迎来到我的个人主页;欢迎交流合作)
