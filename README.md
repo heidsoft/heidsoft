@@ -1,6 +1,6 @@
 <div align="center">
  <h1>👋 你好，我是 <strong>heidsoft</strong></h1>
- <p style="font-size:16px;">云原生、AIOps 与可观测性爱好者 • 分享开源与工程实践</p>
+    <p style="font-size:16px;">爱好：ITSM、DevOps、AIOps、FinOps、AGI；云原生、可观测性与云安全实践 • 分享开源与工程实践</p>
 
  <p>
   <a href="https://github.com/heidsoft"><img src="https://img.shields.io/badge/GitHub-@heidsoft-181717?style=for-the-badge&logo=github" alt="GitHub"/></a>
@@ -38,10 +38,12 @@
 
 ## 📊 GitHub 统计
 
-<p>
-![Heidsoft's GitHub stats](https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=radical)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=radical)
+<p align="center">
+    <img src="assets/gh-stats.svg" alt="GitHub stats" />
+    <img src="assets/top-langs.svg" alt="Top languages" />
 </p>
+
+> 如果本地图片不存在，GitHub 会显示外部链接。可在本机运行 `scripts/fetch-gh-stats.sh` 下载最新 SVG 到 `assets/`（见下文）。
 
 ---
 
