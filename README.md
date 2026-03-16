@@ -28,100 +28,94 @@
 
 ---
 
-## 🏆 GitHub 成就
+## 📊 GitHub 统计
 
 <div align="center">
-  <a href="https://github.com/heidsoft?tab=achievements">
-    <img src="https://github.com/heidsoft.png?size=200" alt="Avatar" width="120" style="border-radius: 50%;" />
-  </a>
-  
-  <p>
-    <img src="https://img.shields.io/badge/Followers-224-blue?style=flat-square&logo=github" alt="Followers"/>
-    <img src="https://img.shields.io/badge/Following-892-green?style=flat-square&logo=github" alt="Following"/>
-    <img src="https://img.shields.io/badge/Organization-HeidCloud-purple?style=flat-square&logo=github" alt="Org"/>
-  </p>
-  
-  <p>
-    <img src="https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="GitHub Stats" height="180"/>
-    <img src="https://github-readee-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" height="180"/>
-  </p>
-  
-  <p>
-    <img src="https://github-readme-streak-stats.herokuapp.com?user=heidsoft&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
-  </p>
+  <img src="https://github-readme-stats.vercel.app/api?username=heidsoft&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="GitHub Stats" height="165"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=heidsoft&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" height="165"/>
+</div>
+
+<div align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=heidsoft&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=heidsoft&bg_color=1a1b27&color=58a6ff&line=58a6ff&point=ffffff&area=true&hide_border=true" alt="Activity Graph" />
+</div>
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=heidsoft&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" />
 </div>
 
 ---
 
 ## 🌟 重点项目
 
+### 🏆 热门项目
+
+| 项目 | 描述 | Stars | 技术栈 |
+|------|------|-------|--------|
+| [**devops**](https://github.com/heidsoft/devops) | DevOps 经验总结实践与产品化 | ![Stars](https://img.shields.io/github/stars/heidsoft/devops?style=social) | Docker, K8s, Terraform |
+| [**itsm**](https://github.com/heidsoft/itsm) | 企业级 IT 服务管理平台 | ![Stars](https://img.shields.io/github/stars/heidsoft/itsm?style=social) | Go, TypeScript, Next.js |
+| [**cloudmesh-website**](https://github.com/heidsoft/cloudmesh-website) | CloudMesh 官网 | ![Stars](https://img.shields.io/github/stars/heidsoft/cloudmesh-website?style=social) | HTML, CSS, JS |
+
+---
+
+### 🔧 开源项目
+
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🔧 [itsm](https://github.com/heidsoft/itsm)
-[![Stars](https://img.shields.io/github/stars/heidsoft/itsm?style=social)](https://github.com/heidsoft/itsm/stargazers)
-[![Forks](https://img.shields.io/github/forks/heidsoft/itsm?style=social)](https://github.com/heidsoft/itsm/network/members)
+#### [itsm](https://github.com/heidsoft/itsm) - 企业级 ITSM 平台
 
-**企业级 IT 服务管理平台**
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Go](https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
 
-<p>
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go"/>
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js"/>
-</p>
+企业级 IT 服务管理平台，支持工单管理、BPMN 工作流、SLA 监控、多租户等
 
-> 事件/变更/问题管理与运维自动化，开箱即用的 ITSM 解决方案
+✨ **特性**：事件/变更/问题管理、工作流引擎、审计追踪、RBAC 权限
 
 </td>
 <td width="50%" valign="top">
 
-### 🤖 [aiops](https://github.com/heidsoft/aiops)
-[![Stars](https://img.shields.io/github/stars/heidsoft/aiops?style=social)](https://github.com/heidsoft/aiops/stargazers)
+#### [devops](https://github.com/heidsoft/devops) - DevOps 实践
 
-**AIOps 智能运维平台**
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/K8s-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white)
 
-<p>
-  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white" alt="Prometheus"/>
-  <img src="https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white" alt="Grafana"/>
-</p>
+DevOps 经验总结与实践，包含 CI/CD、容器化、基础设施即代码等
 
-> 告警聚合、根因定位与自动化处置，让运维更智能
+✨ **特性**：微服务架构、自动化部署、监控告警
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-### 🐧 [heidsoft-libc](https://github.com/heidsoft/heidsoft-libc)
-[![Stars](https://img.shields.io/github/stars/heidsoft/heidsoft-libc?style=social)](https://github.com/heidsoft/heidsoft-libc/stargazers)
+#### [cloudmesh-website](https://github.com/heidsoft/cloudmesh-website) - 官网
 
-**轻量级 C 库集合**
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 
-<p>
-  <img src="https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=white" alt="C"/>
-  <img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux"/>
-</p>
+CloudMesh 官方网站，展示 OpenClaw 和 ITSM 产品
 
-> 面向内核与嵌入式开发，轻量高效的 C 库实现
+✨ **特性**：响应式设计、SEO 优化、配置生成器
 
 </td>
 <td width="50%" valign="top">
 
-### 📦 [devops](https://github.com/heidsoft/devops)
-[![Stars](https://img.shields.io/github/stars/heidsoft/devops?style=social)](https://github.com/heidsoft/devops/stargazers)
-[![Forks](https://img.shields.io/github/forks/heidsoft/devops?style=social)](https://github.com/heidsoft/devops/network/members)
+#### [heidsoft-libc](https://github.com/heidsoft/heidsoft-libc) - C 库集合
 
-**DevOps 经验总结与产品化**
+![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 
-<p>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker"/>
-  <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white" alt="Kubernetes"/>
-  <img src="https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white" alt="Terraform"/>
-</p>
+轻量级 C 库集合，面向内核与嵌入式开发
 
-> DevOps 经验总结实践与产品化，持续更新
+✨ **特性**：高性能、轻量级、跨平台
 
 </td>
 </tr>
@@ -129,11 +123,22 @@
 
 ---
 
-## 📊 贡献活动
+### 📚 学习资源
+
+| 项目 | 描述 |
+|------|------|
+| [ai-agents-for-beginners](https://github.com/heidsoft/ai-agents-for-beginners) | AI Agent 入门教程 - 12 课学会构建 AI Agent |
+| [system-prompts-and-models-of-ai-tools](https://github.com/heidsoft/system-prompts-and-models-of-ai-tools) | AI 工具的 System Prompts 和模型集合 |
+| [openai-agents-python](https://github.com/heidsoft/openai-agents-python) | OpenAI Agents Python SDK 学习 |
+| [k8sgpt](https://github.com/heidsoft/k8sgpt) | K8sGPT - Kubernetes AI 诊断工具 |
+
+---
+
+## 🏢 组织
 
 <div align="center">
-  <a href="https://github.com/heidsoft">
-    <img src="https://github-readee-activity-graph.vercel.app/graph?username=heidsoft&bg_color=1a1b27&color=58a6ff&line=58a6ff&point=ffffff&area=true&hide_border=true" alt="Activity Graph" />
+  <a href="https://github.com/HeidCloud">
+    <img src="https://img.shields.io/badge/Organization-HeidCloud-181717?style=for-the-badge&logo=github" alt="HeidCloud"/>
   </a>
 </div>
 
@@ -145,15 +150,15 @@
   <table>
     <tr>
       <td align="center" width="200">
-        <img src="weixin.jpg" alt="微信二维码" width="160" /><br>
-        <strong>微信公众号：云与数字化</strong>
+        <img src="weixin.jpg" alt="微信二维码" width="150" /><br>
+        <strong>公众号：云与数字化</strong>
       </td>
       <td align="left" width="300">
         <h4>🔗 快速链接</h4>
         <p>
           🌐 <a href="https://cloudmesh.top">cloudmesh.top</a><br>
           🐦 <a href="https://twitter.com/heidcloud">Twitter @heidcloud</a><br>
-          💼 <a href="https://github.com/HeidCloud">GitHub Organization</a><br>
+          💼 <a href="https://github.com/HeidCloud">GitHub Org</a><br>
           📧 Issue 或微信联系
         </p>
       </td>
@@ -193,10 +198,6 @@
 <div align="center">
   
   ### 🎯 感谢访问！
-  
-  想了解某个项目或我分享的实践，请直接打开对应仓库或发起讨论。
-  
-  <img src="https://komarev.com/ghpvc/?username=heidsoft&label=Profile%20Views&color=0e75b6&style=flat-square" alt="Profile Views" />
   
   ![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=18&pause=1000&color=58A6FF&center=true&vCenter=true&width=500&lines=欢迎来到我的个人主页;欢迎交流合作;Star+%E2%AD%90+%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E9%BC%93%E5%8A%B1)
   
