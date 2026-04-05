@@ -57,7 +57,7 @@
 |------|------|-------|--------|
 | [**devops**](https://github.com/heidsoft/devops) | DevOps 经验总结实践与产品化 | ![Stars](https://img.shields.io/github/stars/heidsoft/devops?style=social) | Docker, K8s, Terraform |
 | [**itsm**](https://github.com/heidsoft/itsm) | 企业级 IT 服务管理平台 | ![Stars](https://img.shields.io/github/stars/heidsoft/itsm?style=social) | Go, TypeScript, Next.js |
-| [**cloudmesh-website**](https://github.com/heidsoft/cloudmesh-website) | CloudMesh 官网 | ![Stars](https://img.shields.io/github/stars/heidsoft/cloudmesh-website?style=social) | HTML, CSS, JS |
+| [**finance-data-cleaner**](https://github.com/heidsoft/finance-data-cleaner) | 电商财务数据清洗工具 | ![Stars](https://img.shields.io/github/stars/heidsoft/finance-data-cleaner?style=social) | Electron, React, TypeScript |
 
 ---
 
@@ -65,6 +65,19 @@
 
 <table>
 <tr>
+<td width="50%" valign="top">
+
+#### [finance-data-cleaner](https://github.com/heidsoft/finance-data-cleaner) - 财务数据清洗工具
+
+![Electron](https://img.shields.io/badge/Electron-47848F?style=flat-square&logo=electron&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+
+面向电商从业者的桌面端数据处理工具，支持淘宝、京东、抖音等平台订单清洗、对账与分析
+
+✨ **特性**：多平台支持、智能合并、去重清洗、自动对账、品牌返利计算
+
+</td>
 <td width="50%" valign="top">
 
 #### [itsm](https://github.com/heidsoft/itsm) - 企业级 ITSM 平台
@@ -78,6 +91,8 @@
 ✨ **特性**：事件/变更/问题管理、工作流引擎、审计追踪、RBAC 权限
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 #### [devops](https://github.com/heidsoft/devops) - DevOps 实践
@@ -89,21 +104,6 @@
 DevOps 经验总结与实践，包含 CI/CD、容器化、基础设施即代码等
 
 ✨ **特性**：微服务架构、自动化部署、监控告警
-
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
-#### [cloudmesh-website](https://github.com/heidsoft/cloudmesh-website) - 官网
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-
-CloudMesh 官方网站，展示 OpenClaw 和 ITSM 产品
-
-✨ **特性**：响应式设计、SEO 优化、配置生成器
 
 </td>
 <td width="50%" valign="top">
@@ -147,24 +147,18 @@ CloudMesh 官方网站，展示 OpenClaw 和 ITSM 产品
 ## 📫 联系方式
 
 <div align="center">
-  <table>
-    <tr>
-      <td align="center" width="200">
-        <img src="weixin.jpg" alt="微信二维码" width="150" /><br>
-        <strong>公众号：云与数字化</strong>
-      </td>
-      <td align="left" width="300">
-        <h4>🔗 快速链接</h4>
-        <p>
-          🌐 <a href="https://cloudmesh.top">cloudmesh.top</a><br>
-          🐦 <a href="https://twitter.com/heidcloud">Twitter @heidcloud</a><br>
-          💼 <a href="https://github.com/HeidCloud">GitHub Org</a><br>
-          📧 Issue 或微信联系
-        </p>
-      </td>
-    </tr>
-  </table>
+  <h4>🔗 快速链接</h4>
+  <p>
+    🌐 <a href="https://cloudmesh.top">cloudmesh.top</a><br>
+    🐦 <a href="https://twitter.com/heidcloud">Twitter @heidcloud</a><br>
+    💼 <a href="https://github.com/HeidCloud">GitHub Org</a><br>
+    📫 公众号：云与数字化（微信搜索）
+  </p>
 </div>
+
+---
+
+📖 [贡献指南](CONTRIBUTING.md) | 🤝 [提交 Issue](https://github.com/heidsoft/heidsoft/issues)
 
 ---
 
