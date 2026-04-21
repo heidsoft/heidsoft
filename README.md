@@ -57,6 +57,7 @@
 |------|------|-------|--------|
 | [**devops**](https://github.com/heidsoft/devops) | DevOps 经验总结实践与产品化 | ![Stars](https://img.shields.io/github/stars/heidsoft/devops?style=social) | Docker, K8s, Terraform |
 | [**itsm**](https://github.com/heidsoft/itsm) | 企业级 IT 服务管理平台 | ![Stars](https://img.shields.io/github/stars/heidsoft/itsm?style=social) | Go, TypeScript, Next.js |
+| [**heidsoft-nids**](https://github.com/heidsoft/heidsoft-nids) | C 语言网络入侵检测系统 | ![Stars](https://img.shields.io/github/stars/heidsoft/heidsoft-nids?style=social) | C, libpcap, ML |
 | [**finance-data-cleaner**](https://github.com/heidsoft/finance-data-cleaner) | 电商财务数据清洗工具 | ![Stars](https://img.shields.io/github/stars/heidsoft/finance-data-cleaner?style=social) | Electron, React, TypeScript |
 
 ---
@@ -104,6 +105,18 @@
 DevOps 经验总结与实践，包含 CI/CD、容器化、基础设施即代码等
 
 ✨ **特性**：微服务架构、自动化部署、监控告警
+
+<tr>
+<td width="50%" valign="top">
+
+#### [heidsoft-nids](https://github.com/heidsoft/heidsoft-nids) - C 语言网络入侵检测系统
+
+![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+
+基于 C 的网络入侵检测系统，支持协议解析、规则匹配、ML 异常检测与威胁情报
+
+✨ **特性**：PCAP 抓包、TCP/UDP/DNS/HTTP/TLS 协议解析、Snort 规则引擎、ML 异常检测、告警关联
 
 </td>
 <td width="50%" valign="top">
